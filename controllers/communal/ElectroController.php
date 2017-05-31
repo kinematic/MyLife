@@ -1,18 +1,18 @@
 <?php
 
-namespace app\controllers\cars;
+namespace app\controllers\communal;
 
 use Yii;
-use app\models\cars\Charges;
-use app\models\cars\ChargesSearch;
+use app\models\communal\Electro;
+use app\models\communal\ElectroSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ChargesController implements the CRUD actions for Charges model.
+ * ElectroController implements the CRUD actions for Electro model.
  */
-class ChargesController extends Controller
+class ElectroController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class ChargesController extends Controller
     }
 
     /**
-     * Lists all Charges models.
+     * Lists all Electro models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ChargesSearch();
+        $searchModel = new ElectroSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class ChargesController extends Controller
     }
 
     /**
-     * Displays a single Charges model.
+     * Displays a single Electro model.
      * @param integer $id
      * @return mixed
      */
@@ -57,20 +57,17 @@ class ChargesController extends Controller
     }
 
     /**
-     * Creates a new Charges model.
+     * Creates a new Electro model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Charges();
+        $model = new Electro();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-//             return $this->redirect(['view', 'id' => $model->id]);
-// 			return $this->redirect(['index']);
-			return $this->redirect(['cars/road/view', 'id' => $model->road_id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
-			$model->load(Yii::$app->request->get());
             return $this->render('create', [
                 'model' => $model,
             ]);
@@ -78,7 +75,7 @@ class ChargesController extends Controller
     }
 
     /**
-     * Updates an existing Charges model.
+     * Updates an existing Electro model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -97,7 +94,7 @@ class ChargesController extends Controller
     }
 
     /**
-     * Deletes an existing Charges model.
+     * Deletes an existing Electro model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +107,15 @@ class ChargesController extends Controller
     }
 
     /**
-     * Finds the Charges model based on its primary key value.
+     * Finds the Electro model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Charges the loaded model
+     * @return Electro the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Charges::findOne($id)) !== null) {
+        if (($model = Electro::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

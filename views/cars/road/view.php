@@ -49,8 +49,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
     
-    <h2>Заправки</h2>   
-    
     <?php
 
     $dataProvider = new ArrayDataProvider([
@@ -66,6 +64,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     echo GridView::widget([
         'dataProvider' => $dataProvider,
+		'caption' => '<h3 style="display:inline">Заправки</h3>' . ' ' . Html::a('<span class="glyphicon glyphicon-plus"></span>', ['cars/charges/create', 'Charges[road_id]' => $model->id], ['title' => Yii::t('yii', 'добавить')]),
+        'showOnEmpty' => false,
+        'emptyText' => '',
+        'layout' => "{items}",
         'columns' => [
             [
                 'attribute' => 'date',
@@ -79,6 +81,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'charge',
                 'label' => 'заправлено, л',
             ],
+			'odometer',
+			'nextcharge',
         ]
 
     ]) ?>

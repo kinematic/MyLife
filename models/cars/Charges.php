@@ -47,6 +47,7 @@ class Charges extends \yii\db\ActiveRecord
             'charge' => 'заправлено, л',
             'roadname' => 'путёвка',
             'odometer' => 'одометр, км',
+			'nextcharge' => 'следующая заправка, км',
         ];
     }
     
@@ -62,5 +63,12 @@ class Charges extends \yii\db\ActiveRecord
     {
         return $this->road->date;
     }
+
+	public function getNextcharge()
+	{
+		return round($this->odometer + $this->charge * 100 / $this->road->car->model->consumption, 0);
+		
+
+	}
 
 }

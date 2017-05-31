@@ -25,6 +25,7 @@ $this->title = 'Моя жизнь';
                 <p><a class="btn btn-default" href="index.php?r=cars/cars">Автомобили</a></p>
                 <p><a class="btn btn-default" href="index.php?r=cars/charges">Заправки</a></p>
                 <p><a class="btn btn-default" href="index.php?r=cars/regulations">Регламент работ</a></p>
+				<p><a class="btn btn-default" href="index.php?r=cars/spareparts">Запчасти</a></p>
             </div>
             <div class="col-lg-4">
                 <h2>Перепросмотр</h2>
@@ -34,8 +35,15 @@ $this->title = 'Моя жизнь';
                 <p><a class="btn btn-default" href="index.php?r=recapitulation/meetings">Встречи</a></p>
                 <p><a class="btn btn-default" href="index.php?r=recapitulation/tags">Свойства</a></p>
             </div>
+            <div class="col-lg-4">
+                <h2>Коммунальные расходы</h2>
+
+                <p><a class="btn btn-default" href="index.php?r=communal/electro">Электросчётчик</a></p>
+
+            </div>
            
         </div>
 
     </div>
 </div>
+

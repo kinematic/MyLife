@@ -165,7 +165,7 @@ class Road extends \yii\db\ActiveRecord
     
    public function getCarname()
    {
-       return trim($this->car['modelname'] . ' ' . $this->car['license']);
+       return $this->car->license;
    }
    
     public function getRoadname()

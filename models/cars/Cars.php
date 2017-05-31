@@ -9,7 +9,9 @@ use Yii;
  *
  * @property integer $id
  * @property string $license
+ * @property string $vin
  * @property integer $modelid
+ * @property string $description
  */
 class Cars extends \yii\db\ActiveRecord
 {
@@ -30,6 +32,8 @@ class Cars extends \yii\db\ActiveRecord
             [['license', 'modelid'], 'required'],
             [['modelid'], 'integer'],
             [['license'], 'string', 'max' => 8],
+			[['vin'], 'string', 'max' => 17],
+			[['description'], 'string'],
         ];
     }
 
@@ -40,8 +44,10 @@ class Cars extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'license' => 'License',
-            'modelid' => 'Modelid',
+            'license' => 'номер',
+			'vin' => 'VIN',
+            'modelid' => 'модель',
+			'description' => 'описание',
         ];
     }
     
@@ -53,10 +59,10 @@ class Cars extends \yii\db\ActiveRecord
         return $this->hasOne(Models::className(), ['id' => 'modelid']);
     }
     
-    public function getModelname()
-    {
-        return $this->model->name;
-    }
+//     public function getModelname()
+//     {
+//         return $this->model->name;
+//     }
     
     public function getConsumption()
     {

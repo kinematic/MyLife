@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\cars\CarsSearch */
+/* @var $searchModel app\models\cars\SparepartsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Автомобили';
+$this->title = 'Запчасти';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="cars-index">
+<div class="spareparts-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -25,9 +25,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            'license',
-			'vin',
             'model.name',
+            'partcode',
+            'description:ntext',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
