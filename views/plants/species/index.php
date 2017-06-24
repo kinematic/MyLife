@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\recapitulation\PeopleSearch */
+/* @var $searchModel app\models\plants\SpeciesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Люди';
+$this->title = 'Виды расстений';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="people-index">
+<div class="species-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -23,12 +23,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            [
-                'attribute'=> 'fullname', 
-                'contentOptions' =>['style' => 'white-space: nowrap']
-            ],
+
+//             'id',
+            'name',
             'description:ntext',
-            ['class' => 'yii\grid\ActionColumn', 'contentOptions' =>['style' => 'white-space: nowrap']],
+
+            ['class' => 'yii\grid\ActionColumn'],
         ],
-    ]);?>
+    ]); ?>
 </div>

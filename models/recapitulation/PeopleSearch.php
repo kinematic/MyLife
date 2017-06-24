@@ -43,7 +43,7 @@ class PeopleSearch extends People
      */
     public function search($params)
     {
-        $query = People::find()->orderBy('first_name')->addOrderBy('second_name');
+        $query = People::find()->orderBy('first_name, second_name');
 
         // add conditions that should always apply here
 
@@ -84,9 +84,12 @@ class PeopleSearch extends People
 //             ->andFilterWhere(['like', 'second_name', $this->second_name])
 //             ->andFilterWhere(['like', 'middle_name', $this->middle_name])
 //             ->andFilterWhere(['like', 'description', $this->description])
-	    $query->andWhere('first_name LIKE "%' . $this->fullname . '%" ' .
-	    'OR second_name LIKE "%' . $this->fullname . '%"');
-
+// 	    $query->andWhere('first_name LIKE "%' . $this->fullname . '%" ' .
+// 	    'OR second_name LIKE "%' . $this->fullname . '%"');
+        $query->andFilterWhere(['or',
+            ['like', 'first_name', $this->fullname],
+            ['like', 'second_name', $this->fullname],
+        ]);
         return $dataProvider;
     }
 }

@@ -1,16 +1,16 @@
 <?php
 
-namespace app\models\cars;
+namespace app\models\plants;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\cars\Cars;
+use app\models\plants\Plants;
 
 /**
- * CarsSearch represents the model behind the search form about `app\models\fuel\Cars`.
+ * PlantsSearch represents the model behind the search form about `app\models\plants\Plants`.
  */
-class CarsSearch extends Cars
+class PlantsSearch extends Plants
 {
     /**
      * @inheritdoc
@@ -18,9 +18,8 @@ class CarsSearch extends Cars
     public function rules()
     {
         return [
-            [['id', 'tank', 'division'], 'integer'],
-            [['name', 'license'], 'safe'],
-            [['consumption'], 'number'],
+            [['id', 'plantspeciesid', 'name'], 'integer'],
+            [['description'], 'safe'],
         ];
     }
 
@@ -42,7 +41,7 @@ class CarsSearch extends Cars
      */
     public function search($params)
     {
-        $query = Cars::find();
+        $query = Plants::find();
 
         // add conditions that should always apply here
 
@@ -61,13 +60,11 @@ class CarsSearch extends Cars
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'tank' => $this->tank,
-            'division' => $this->division,
-            'consumption' => $this->consumption,
+            'plantspeciesid' => $this->plantspeciesid,
+            'name' => $this->name,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-        ->andFilterWhere(['like', 'license', $this->license]);
+        $query->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
     }

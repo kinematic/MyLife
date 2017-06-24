@@ -41,6 +41,13 @@ $this->title = 'Моя жизнь';
                 <p><a class="btn btn-default" href="index.php?r=communal/electro">Электросчётчик</a></p>
 
             </div>
+            <div class="col-lg-4">
+                <h2>Расстения</h2>
+
+                <p><a class="btn btn-default" href="index.php?r=plants/plants">Расстения</a></p>
+                <p><a class="btn btn-default" href="index.php?r=plants/species">Виды расстений</a></p>
+
+            </div>
            
         </div>
 

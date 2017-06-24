@@ -19,7 +19,7 @@ class RoadSearch extends Road
     public function rules()
     {
         return [
-            [['id', 'carid', 'odometer', 'tank', 'charges'], 'integer'],
+            [['id', 'carid', 'odometer', 'tank'], 'integer'],
             //[['date'], 'safe'],
             [['carname'], 'safe'],
 //             [['carname'],'string'],

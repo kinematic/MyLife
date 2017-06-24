@@ -12,7 +12,6 @@ use Yii;
  * @property integer $carid
  * @property integer $odometer
  * @property integer $tank
- * @property integer $charges
  */
 class Road extends \yii\db\ActiveRecord
 {
@@ -32,7 +31,7 @@ class Road extends \yii\db\ActiveRecord
         return [
             [['date', 'carid', 'odometer', 'tank'], 'required'],
             [['date'], 'safe'],
-            [['carid', 'odometer', 'charges'], 'integer'],
+            [['carid', 'odometer'], 'integer'],
             [['tank', 'fullCharge'], 'number'],
         ];
     }
@@ -49,8 +48,6 @@ class Road extends \yii\db\ActiveRecord
             'carname' => 'автомобиль',
             'odometer' => 'одометр, км',
             'tank' => 'бак, л',
-            'charges' => 'заправлено, л',
-            //'charge' => 'заправлено, л',
             'fullCharge' => 'заправлено, л',
             'mileage' => 'пробег, км',
             'fuelConsumption' => 'расход, л/100 км',
@@ -80,15 +77,15 @@ class Road extends \yii\db\ActiveRecord
     public function getFullCharge()
     {
         $row = (new \yii\db\Query())
-        ->select(['sum(charge)'])
-        ->from('cars_charges')
-        ->where('road_id = :thisid')
-        ->addParams([':thisid' => $this->id])
-        ->limit(1)
-        ->one();
+	        ->select(['sum(charge)'])
+	        ->from('cars_charges')
+	        ->where('road_id = :thisid')
+	        ->addParams([':thisid' => $this->id])
+	        ->limit(1)
+	        ->one();
         
         if($row['sum(charge)']) return $row['sum(charge)'];
-        else return NULL;
+        else return 0;
         //return if(isset($row['sum(charge)')];
 
     }
@@ -100,23 +97,23 @@ class Road extends \yii\db\ActiveRecord
     {
         if ($this->id) {
             $row = (new \yii\db\Query())
-            ->select(['r.odometer', 'r.tank'])
-            ->from('cars_road r')
-            ->join('INNER JOIN', 'cars_cars c', 'c.id = r.carid')
-            ->where('r.id < :thisid')
-            ->andWhere(['like', 'c.license', $this->car->license])
-            ->addParams([':thisid' => $this->id])
-            ->limit(1)
-            ->orderBy(['r.id' => SORT_DESC])
-            ->one();
+	            ->select(['r.odometer', 'r.tank'])
+	            ->from('cars_road r')
+	            ->join('INNER JOIN', 'cars_cars c', 'c.id = r.carid')
+	            ->where('r.id < :thisid')
+	            ->andWhere(['like', 'c.license', $this->car->license])
+	            ->addParams([':thisid' => $this->id])
+	            ->limit(1)
+	            ->orderBy(['r.id' => SORT_DESC])
+	            ->one();
         } else {
             $row = (new \yii\db\Query())
-            ->select(['odometer', 'tank'])
-            ->from('cars_road')
-            ->where(['carid' => 1])
-            ->limit(1)
-            ->orderBy(['id' => SORT_DESC])
-            ->one();
+	            ->select(['odometer', 'tank'])
+	            ->from('cars_road')
+	            ->where(['carid' => 1])
+	            ->limit(1)
+	            ->orderBy(['id' => SORT_DESC])
+	            ->one();
         }
         return $row;
 
@@ -142,8 +139,10 @@ class Road extends \yii\db\ActiveRecord
     public function getMileage()
     {
         //return $this->odometer - $this->prevodometer;
+// 		return 10;
+		
         if (isset($this->prevval['odometer'])) return $this->odometer - $this->prevval['odometer'];
-        else return NULL;
+        else return 0;
     }
     
     public function getDiffVol()
