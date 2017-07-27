@@ -15,6 +15,8 @@ use Yii;
  */
 class Road extends \yii\db\ActiveRecord
 {
+    public $scaleTank;
+    
     /**
      * @inheritdoc
      */
@@ -32,7 +34,7 @@ class Road extends \yii\db\ActiveRecord
             [['date', 'carid', 'odometer', 'tank'], 'required'],
             [['date'], 'safe'],
             [['carid', 'odometer'], 'integer'],
-            [['tank', 'fullCharge'], 'number'],
+            [['tank', 'fullCharge', 'scaleTank'], 'number'],
         ];
     }
 
@@ -48,6 +50,7 @@ class Road extends \yii\db\ActiveRecord
             'carname' => 'автомобиль',
             'odometer' => 'одометр, км',
             'tank' => 'бак, л',
+            'scaleTank' => 'деления',
             'fullCharge' => 'заправлено, л',
             'mileage' => 'пробег, км',
             'fuelConsumption' => 'расход, л/100 км',
@@ -158,7 +161,7 @@ class Road extends \yii\db\ActiveRecord
     
     public function getSurplus()
     {
-        if (isset($this->mileage)) return round($this->mileage * $this->car->consumption / 100 - $this->diffVol, 0);
+        if (isset($this->mileage)) return round($this->mileage * $this->car->model->consumption / 100 - $this->diffVol, 0);
         else return NULL;
     }
     
@@ -169,6 +172,16 @@ class Road extends \yii\db\ActiveRecord
    
     public function getRoadname()
     {
-        return trim($this->date . ' ' . $this->car['license']);
+        return 'Путёвка до ' . $this->date . ' на ' . $this->car['license'];
+    }
+    
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if(isset($this->scaleTank)) $this->tank = $this->car->model->tank * $this->scaleTank / $this->car->model->division;
+            return parent::beforeSave($insert);
+        } else {
+            return false;
+        }
     }
 }

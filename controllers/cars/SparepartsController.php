@@ -121,22 +121,4 @@ class SparepartsController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-
-	/**
-	 * @inheritdoc
-	 */
-// 	public function beforeSave($insert)
-// 	{
-// 	        print_r($this);
-// 			die();
-// 	    if (parent::beforeSave($insert)) {
-// 
-// 			
-// 	        return true;
-// 	    } else {
-// 	        return false;
-// 	    }
-// 	}
-
-
 }

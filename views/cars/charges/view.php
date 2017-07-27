@@ -8,6 +8,7 @@ use yii\widgets\DetailView;
 
 $this->title = $model->date;
 $this->params['breadcrumbs'][] = ['label' => 'Заправки', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->road->roadname, 'url' => ['cars/road/view', 'id' => $model->road_id, '#' => 'charges']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="charges-view">

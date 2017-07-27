@@ -12,13 +12,15 @@ use app\models\plants\Plants;
  */
 class PlantsSearch extends Plants
 {
+    public $speciesID;
+    
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'plantspeciesid', 'name'], 'integer'],
+            [['id', 'plantspeciesid', 'name', 'speciesID'], 'integer'],
             [['description'], 'safe'],
         ];
     }
@@ -56,7 +58,8 @@ class PlantsSearch extends Plants
             // $query->where('0=1');
             return $dataProvider;
         }
-
+        
+        
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
@@ -65,7 +68,12 @@ class PlantsSearch extends Plants
         ]);
 
         $query->andFilterWhere(['like', 'description', $this->description]);
+        $query->andFilterWhere(['plantspeciesid' => $this->speciesID]);
 
+        //сортировка
+        $query->innerJoinWith(['species']);
+        $query->orderBy('plants_species.name');
+        
         return $dataProvider;
     }
 }

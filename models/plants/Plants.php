@@ -3,6 +3,8 @@
 namespace app\models\plants;
 
 use Yii;
+use yii\web\UploadedFile;
+use app\models\plants\Pictures;
 
 /**
  * This is the model class for table "plants".
@@ -14,6 +16,12 @@ use Yii;
  */
 class Plants extends \yii\db\ActiveRecord
 {
+
+    public $file;
+    public $delImg;
+    public $mainImg;
+
+
     /**
      * @inheritdoc
      */
@@ -31,6 +39,13 @@ class Plants extends \yii\db\ActiveRecord
             [['plantspeciesid', 'name'], 'required'],
             [['plantspeciesid'], 'integer'],
             [['description', 'name'], 'string'],
+            [['file'], 'image', 'extensions' => 'png, jpg'],
+//             [['delImg'], 'safe'],
+            ['delImg', 'each', 'rule' => ['integer']],
+//             ['mainImg', 'each', 'rule' => ['']],
+            ['mainImg', 'integer'],
+//             ['landing', 'date'],
+            [['landing'], 'date', 'format' => 'yyyy-M-d'],
         ];
     }
 
@@ -45,6 +60,8 @@ class Plants extends \yii\db\ActiveRecord
             'species.name' => 'вид',
             'name' => 'название',
             'description' => 'описание',
+            'landing' => 'год высадки',
+            'file' => 'фото',
         ];
     }
     
@@ -61,6 +78,14 @@ class Plants extends \yii\db\ActiveRecord
      */
     public function getPictures()
     {
-        return $this->hasOne(Pictures::className(), ['id' => 'plantid']);
+        return $this->hasMany(Pictures::className(), ['plantid' => 'id']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+//     public function getPicture()
+//     {
+//         return Pictures::find()->select('name')->where(['plantid' => $this->id])->limit(1)->one();
+//     }
 }

@@ -27,9 +27,11 @@ class Pictures extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['plantid', 'name'], 'required'],
-            [['plantid'], 'integer'],
-            [['name'], 'string', 'max' => 50],
+			[['plantid', 'name'], 'required'],
+			[['plantid'], 'integer'],
+			[['name'], 'string', 'max' => 50],
+			[['main'], 'boolean'],
+			[['date'], 'date'],
         ];
     }
 
@@ -43,5 +45,13 @@ class Pictures extends \yii\db\ActiveRecord
             'plantid' => 'расстение',
             'name' => 'картинка',
         ];
+    }
+    
+    public function afterDelete()
+    {
+        $filename = Yii::getAlias('@webroot') . '/images/' . $this->name;
+        if (file_exists($filename)) unlink($filename);
+        $filename = Yii::getAlias('@webroot') . '/images/thumbs/' . $this->name;
+        if (file_exists($filename)) unlink($filename);
     }
 }

@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\cars\Models */
 
-$this->title = 'Create Models';
-$this->params['breadcrumbs'][] = ['label' => 'Models', 'url' => ['index']];
+$this->title = 'Добавление модели автомобиля';
+$this->params['breadcrumbs'][] = ['label' => 'Модели автомобилей', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="models-create">

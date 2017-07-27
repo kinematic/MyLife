@@ -23,7 +23,7 @@ use app\models\cars\Cars;
                     'autoclose' => true,
                     'format' => 'yyyy-mm-dd'
                 ]
-            ]); ?>
+            ]); Yii::warning(print_r($model, true));?>
         
     <?php if (!$model->carid) $model->carid = 1; ?>
         
@@ -35,7 +35,14 @@ use app\models\cars\Cars;
     
     <?php if (!$model->tank) $model->tank = $model->prevval['tank']; ?>
 
-    <?= $form->field($model, 'tank')->textInput() ?>
+    <div class="row">
+        <div class="col-xs-6">
+            <?= $form->field($model, 'tank')->textInput() ?>
+        </div>
+        <div class="col-xs-6">
+            <?= $form->field($model, 'scaleTank')->textInput() ?>
+        </div>
+    </div>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Сохранить' : 'Сохранить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

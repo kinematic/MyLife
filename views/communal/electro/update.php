@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\communal\Electro */
 
-$this->title = 'Update Electro: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Electros', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Редактирование показаний: ' . $model->date;
+$this->params['breadcrumbs'][] = ['label' => 'Электросчётчик', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->date, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = 'Редактирование';
 ?>
 <div class="electro-update">
 

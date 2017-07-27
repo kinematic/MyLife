@@ -61,7 +61,7 @@ class Charges extends \yii\db\ActiveRecord
     
     public function getRoadname()
     {
-        return $this->road->date;
+        return 'до ' . $this->road->date . ' на ' . $this->road->car->license;
     }
 
 	public function getNextcharge()

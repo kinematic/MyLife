@@ -12,6 +12,36 @@ $this->params['breadcrumbs'][] = ['label' => 'Расстения', 'url' => ['in
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="plants-view">
+	<?php 
+    $items = [];
+    foreach($pictures as $picture) {
+        $items[] =  [
+                'content' => Html::img('/images/' . $picture->name),
+//                 'caption' => $picture->name,
+//                 'options' => ['style' => 'height:100px;'],
+            ];
+    }
+
+    ?>
+    
+    <?php $carousel = [
+        [
+//             'content' => '<img src="/images/Golden Selebration_1.jpg"/>, "style"=>"width: 30%"',
+			'content' => '<img src="/images/Golden Selebration_1.jpg"/>',
+//             'caption' => '<h1>Заголовок</h1><p>Какой-то дополнительный текст</p><p><a href="/article/link/1" class="btn btn-primary">Подробнее <span class="glyphicon glyphicon-chevron-right"></a></p>',
+//             'options' => ['style' => 'height:50%;']
+        ],
+    ] ?>
+
+    <?= Carousel::widget([
+        'items' => $items,
+//         'options' => ['class' => 'carousel slide', 'data-interval' => '12000', 'style' => 'height: 100px'],
+		'options' => ['class' => 'carousel slide', 'data-interval' => '12000'],
+        'controls' => [
+        '<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>',
+        '<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>'
+        ]
+    ]); ?>
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -26,22 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
     
-    <?php $carousel = [
-        [
-            'content' => '<img src="/uploads/Golden Selebration_1.jpg"/>, "style"=>"width: 30%"',
-            'caption' => '<h1>Заголовок</h1><p>Какой-то дополнительный текст</p><p><a href="/article/link/1" class="btn btn-primary">Подробнее <span class="glyphicon glyphicon-chevron-right"></a></p>',
-            'options' => ['style' => 'height:50%;']
-        ],
-    ] ?>
-
-    <?= Carousel::widget([
-        'items' => $carousel,
-        'options' => ['class' => 'carousel slide', 'data-interval' => '12000', 'style' => 'height: 100px'],
-        'controls' => [
-        '<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>',
-        '<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>'
-        ]
-    ]); ?>
+    
 
     <?= DetailView::widget([
         'model' => $model,
@@ -50,6 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //             'plantspeciesid',
             'species.name',
             'name',
+            'landing',
             'description:ntext',
         ],
     ]) ?>

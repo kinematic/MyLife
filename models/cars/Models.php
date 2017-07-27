@@ -30,11 +30,11 @@ class Models extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'license', 'tank', 'division', 'consumption'], 'required'],
+            [['name'], 'required'],
             [['tank', 'division'], 'integer'],
             [['consumption'], 'number'],
             [['name'], 'string', 'max' => 100],
-            [['license'], 'string', 'max' => 8],
+//             [['license'], 'string', 'max' => 8],
         ];
     }
 
@@ -45,11 +45,11 @@ class Models extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'license' => 'License',
-            'tank' => 'Tank',
-            'division' => 'Division',
-            'consumption' => 'Consumption',
+            'name' => 'название',
+//             'license' => 'номер',
+            'tank' => 'ёмкость бака, л',
+            'division' => 'деления бака',
+            'consumption' => 'расход, л/ 100 км',
         ];
     }
 }

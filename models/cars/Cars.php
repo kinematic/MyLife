@@ -59,16 +59,6 @@ class Cars extends \yii\db\ActiveRecord
         return $this->hasOne(Models::className(), ['id' => 'modelid']);
     }
     
-//     public function getModelname()
-//     {
-//         return $this->model->name;
-//     }
-    
-    public function getConsumption()
-    {
-        return $this->model->consumption;
-    }
-    
     public function getCarname()
     {
         return $this->model->name . ' ' . $this->license;

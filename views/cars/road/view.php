@@ -65,14 +65,14 @@ $this->params['breadcrumbs'][] = $this->title;
     echo GridView::widget([
         'dataProvider' => $dataProvider,
 		'caption' => '<h3 style="display:inline">Заправки</h3>' . ' ' . Html::a('<span class="glyphicon glyphicon-plus"></span>', ['cars/charges/create', 'Charges[road_id]' => $model->id], ['title' => Yii::t('yii', 'добавить')]),
-        'showOnEmpty' => false,
+        'showOnEmpty' => true,
         'emptyText' => '',
         'layout' => "{items}",
         'columns' => [
             [
                 'attribute' => 'date',
                 'value' => function ($data) {
-                    return Html::a(Html::encode($data->date), Url::to(['cars/charges/view', 'id' => $data->id]));
+                    return Html::a(Html::encode($data->date), Url::to(['cars/charges/view', 'id' => $data->id, 'road_id' => $data->road_id]));
                 },
                 'format' => 'raw',
                 'label' => 'дата',

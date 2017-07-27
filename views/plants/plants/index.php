@@ -2,6 +2,9 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
+use app\models\plants\Pictures;
+use app\models\plants\Species;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\plants\PlantsSearch */
@@ -23,14 +26,38 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-//             'id',
-//             'plantspeciesid',
-            'species.name',
+            [            
+                'attribute' => 'file',
+                'format' => 'raw',    
+                'value' => function($data) {
+                $image = Pictures::find()->select('name')
+	                ->where(['plantid' => $data->id, 'main' => 1])->asArray()->one();
+//                     return Html::img('/images/thumbs/' . $image['name']);
+					return Html::a(Html::img('/images/thumbs/' . $image['name']), ['plants/plants/view', 'id' => $data->id]);
+                },        
+            ],
+//             'species.name',
+            [
+                'attribute' => 'species.name',
+                'value' => 'species.name',
+                'filter' => Html::activeDropDownList(
+                    $searchModel, 
+                    'speciesID', 
+                    ArrayHelper::map(Species::find()->select(['id', 'name'])->asArray()->orderBy(['name' => SORT_ASC])->all(), 
+                    'id',
+					'name'
+					),
+                    [
+                        'class'=>'form-control',
+                        'prompt' => '',
+//                         'options' => ['RBS' => ['selected' => 'selected']]
+                    ])
+            ],
             'name',
             'description:ntext',
 
             ['class' => 'yii\grid\ActionColumn', 'contentOptions' =>['style' => 'white-space: nowrap']],
         ],
-    ]); ?>
+    ]); 
+    ?>
 </div>
