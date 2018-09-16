@@ -28,14 +28,6 @@ $this->title = 'Моя жизнь';
 				<p><a class="btn btn-default" href="index.php?r=cars/spareparts">Запчасти</a></p>
             </div>
             <div class="col-lg-4">
-                <h2>Перепросмотр</h2>
-
-                <p><a class="btn btn-default" href="index.php?r=recapitulation/people">Люди</a></p>
-                <p><a class="btn btn-default" href="index.php?r=recapitulation/places">Места</a></p>
-                <p><a class="btn btn-default" href="index.php?r=recapitulation/meetings">Встречи</a></p>
-                <p><a class="btn btn-default" href="index.php?r=recapitulation/tags">Свойства</a></p>
-            </div>
-            <div class="col-lg-4">
                 <h2>Коммунальные расходы</h2>
 
                 <p><a class="btn btn-default" href="index.php?r=communal/electro">Электросчётчик</a></p>
@@ -48,7 +40,34 @@ $this->title = 'Моя жизнь';
                 <p><a class="btn btn-default" href="index.php?r=plants/species">Виды расстений</a></p>
 
             </div>
-           
+            <div class="col-lg-4">
+                <h2>Бухгалтерия</h2>
+
+                <p><a class="btn btn-default" href="index.php?r=bookkeeping/accounts">План счетов</a></p>
+				<p><a class="btn btn-default" href="index.php?r=bookkeeping/catalog">Ценности</a></p>
+                <p><a class="btn btn-default" href="index.php?r=bookkeeping/records">Проводки</a></p>
+
+            </div>
+            <div class="col-lg-4">
+                <h2>Заметки</h2>
+
+                <p><a class="btn btn-default" href="index.php?r=notes/notes">Заметки</a></p>
+				<p><a class="btn btn-default" href="index.php?r=notes/categories">Категории</a></p>
+            </div>
+            <div class="col-lg-4">
+                <h2>Отслеживание</h2>
+
+                <p><a class="btn btn-default" href="index.php?r=tracing/tracing">Отслеживание</a></p>
+				<p><a class="btn btn-default" href="index.php?r=tracing/groups">Группы</a></p>
+            </div>
+            <div class="col-lg-4">
+                <h2>Перепросмотр</h2>
+
+                <p><a class="btn btn-default" href="index.php?r=recapitulation/people">Люди</a></p>
+                <p><a class="btn btn-default" href="index.php?r=recapitulation/places">Места</a></p>
+                <p><a class="btn btn-default" href="index.php?r=recapitulation/meetings">Встречи</a></p>
+                <p><a class="btn btn-default" href="index.php?r=recapitulation/tags">Свойства</a></p>
+            </div>
         </div>
 
     </div>

@@ -30,8 +30,6 @@ class Pictures extends \yii\db\ActiveRecord
 			[['plantid', 'name'], 'required'],
 			[['plantid'], 'integer'],
 			[['name'], 'string', 'max' => 50],
-			[['main'], 'boolean'],
-			[['date'], 'date'],
         ];
     }
 
@@ -53,5 +51,13 @@ class Pictures extends \yii\db\ActiveRecord
         if (file_exists($filename)) unlink($filename);
         $filename = Yii::getAlias('@webroot') . '/images/thumbs/' . $this->name;
         if (file_exists($filename)) unlink($filename);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMainimage()
+    {
+        return $this->hasOne(Plants::className(), ['pictureid' => 'id']);
     }
 }

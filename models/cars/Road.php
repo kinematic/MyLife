@@ -1,8 +1,9 @@
 <?php
 
 namespace app\models\cars;
-
+// use app\models\bookkeeping\Records;
 use Yii;
+use app\models\bookkeeping\Records;
 
 /**
  * This is the model class for table "cars_road".
@@ -55,6 +56,7 @@ class Road extends \yii\db\ActiveRecord
             'mileage' => 'пробег, км',
             'fuelConsumption' => 'расход, л/100 км',
             'surplus' => 'излишки, л',
+            'costKM' => 'стоимость километра, грн/км',
         ];
     }
     
@@ -178,10 +180,27 @@ class Road extends \yii\db\ActiveRecord
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
+//             Yii::warning(print_r($this, true));
+            if($this->scaleTank == '') $this->scaleTank = null;
             if(isset($this->scaleTank)) $this->tank = $this->car->model->tank * $this->scaleTank / $this->car->model->division;
             return parent::beforeSave($insert);
         } else {
             return false;
         }
+    }
+    
+    public function getCostKM()
+    {
+        if($this->car->id == 2) {
+            $date2 = date('Y-m-d', strtotime($this->date . ' +6 days'));
+            $cost = null;
+//             $query = "date BETWEEN '" . $this-date . "' AND '" . $date2 . "'";
+//             Yii::warning($query);
+            $cost = Records::find()->where(['typeid' => 1])->andWhere("date BETWEEN '" . $this->date . "' AND '" . $date2 . "'")->sum('money');
+// $cost = Records::find()->where(['typeid' => 1])->sum('money');
+            if($this->mileage) return round($cost / $this->mileage, 1);
+            else return null;
+        }
+        else return null;
     }
 }

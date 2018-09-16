@@ -28,6 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=> 'carname', 
                 'contentOptions' =>['style' => 'white-space: nowrap']
             ],
+            'mileage',
+            'costKM',
             'fuelConsumption',
             ['class' => 'yii\grid\ActionColumn', 'contentOptions' =>['style' => 'white-space: nowrap']],
         ],

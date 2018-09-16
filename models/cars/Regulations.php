@@ -1,6 +1,8 @@
 <?php
 
 namespace app\models\cars;
+// use app\models\bookkeeping\Catalog;
+use app\models\bookkeeping\Catalog;
 
 use Yii;
 
@@ -9,6 +11,7 @@ use Yii;
  *
  * @property integer $id
  * @property string $name
+ * @property string $catalogid
  * @property string $description
  * @property integer $interval
  * @property integer $period
@@ -31,9 +34,9 @@ class Regulations extends \yii\db\ActiveRecord
         return [
             [['name', 'description', 'interval'], 'required'],
             [['description'], 'string'],
-            [['interval', 'period'], 'integer'],
+            [['interval', 'period', 'catalogid'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['period'], 'default', 'value' => NULL],
+            [['period', 'catalogid'], 'default', 'value' => NULL],
         ];
     }
 
@@ -45,9 +48,16 @@ class Regulations extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'название',
+            'catalogid' => 'название в каталоге',
+            'catalog.name' => 'название в каталоге',
             'description' => 'описание',
             'interval' => 'интервал, км',
             'period' => 'период, лет',
         ];
+    }
+    
+    public function getCatalog()
+    {
+        return $this->hasOne(Catalog::className(), ['id' => 'catalogid']);
     }
 }

@@ -9,11 +9,12 @@ use app\models\plants\Pictures;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+// use yii\imagine\Image;
+// use Imagine\Gd;
+// use Imagine\Image\Box;
+// use Imagine\Image\BoxInterface;
 use yii\web\UploadedFile;
-use yii\imagine\Image;
-use Imagine\Gd;
-use Imagine\Image\Box;
-use Imagine\Image\BoxInterface;
+use app\models\UploadForm;
 
 /**
  * PlantsController implements the CRUD actions for Plants model.
@@ -57,8 +58,12 @@ class PlantsController extends Controller
      */
     public function actionView($id)
     {
-        $pictures = Pictures::find()->select('name')->where(['plantid' => $id])->orderBy('main DESC')->all();
-//         $pictures = Pi
+        $pictures = Pictures::find()->select('plants_pictures.name')
+		->joinWith('mainimage')
+		->where(['plantid' => $id])
+		->orderBy('pictureid DESC')
+		->all();
+
         return $this->render('view', [
             'model' => $this->findModel($id),
             'pictures' => $pictures,
@@ -75,7 +80,18 @@ class PlantsController extends Controller
         $model = new Plants();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $this->addPicture($model);
+
+			$uploads = new UploadForm();
+			$uploads->imageFiles = UploadedFile::getInstances($model, 'imageFiles');
+			$uploads->modelID = $model->id;
+			$uploads->upload();
+
+			//назначение главной картинки
+			if(isset($uploads->mainImg)) {
+				$model->pictureid = $uploads->mainImg;
+				$model->save();
+			}
+
             return $this->redirect(['view', 'id' => $model->id]);
 
         } else {
@@ -94,24 +110,19 @@ class PlantsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-//         print_r($_POST);
-//         die();
-        
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-//                 print_r($model);
-//         die();
-            Yii::warning('id картинки' . $model->mainImg);
-//             Yii::warning('главная картинкаs: ' . $model->mainImg, false);
-            //добавление картинок
-            $this->addPicture($model);
-            
-            //назначение главной картинки
-            if(isset($model->mainImg)) {
-                Pictures::updateAll(['main' => null], 'plantid = ' . $id);
-                $picture = Pictures::findOne($model->mainImg);
-                $picture->main = true;
-                $picture->save();
-            }
+
+			$uploads = new UploadForm();
+			$uploads->imageFiles = UploadedFile::getInstances($model, 'imageFiles');
+			$uploads->modelID = $model->id;
+			$uploads->upload();
+
+			//назначение главной картинки
+			if(isset($uploads->mainImg)) {
+				$model->pictureid = $uploads->mainImg;
+				$model->save();
+			}
             
             //удаление картинок
             if(isset($model->delImg)) {
@@ -170,49 +181,5 @@ class PlantsController extends Controller
 	        //echo "The directory {$path} was successfully created.";  
 	    }
 	}
-	
-	public function addPicture($model) {
-            $file = UploadedFile::getInstance($model, 'file');
-// 			Yii::warning('картинка: ' . print_r($file, true));
-// 			Yii::warning('картинка: ' . date('Y-m-d H:i:s.', filectime($file->tempName)));
-// Yii::warning('картинка: ' . exif_read_data('/var/www/localhost/htdocs/aiv/tmp/image.jpg'));
-            if ($file && $file->tempName) {
-                $model->file = $file;
-                if ($model->validate(['file'])) {
-                    $dir = Yii::getAlias('images/');
-                    $fileName = $model->file->baseName . '.' . $model->file->extension;
-                    $model->file->saveAs($dir . $fileName);
-                    $model->file = $fileName; // без этого ошибка
 
-                    $picture = new Pictures();
-
-                    $picture->plantid = $model->id;
-//                     $picture->name = '/' . $dir . $fileName;
-                    $picture->name = $fileName;
-                    
-                    $countPictures = Pictures::find()->where(['plantid' => $model->id])->count();
-                    Yii::warning('количество картинок: ' . $countPictures);
-                    if(!$countPictures) $picture->main = 1;
-// 					$filedate = date('Y-m-d H:i:s.', filectime($dir . $fileName));
-// 					Yii::warning('время файла: ' . $filedate);
-// 					$picture->date = $filedate;
-                    $picture->save();
-
-					// Для ресайза фотки до 800x800px по большей стороне надо обращаться к функции Box() или widen, так как в обертках доступны только 5 простых функций: crop, frame, getImagine, setImagine, text, thumbnail, watermark
-                    $photo = Image::getImagine()->open($dir . $fileName);
-                    $photo->thumbnail(new Box(800, 480))->save($dir . $fileName, ['quality' => 90]);
-
-                    
-                    //$imagineObj = new Imagine();
-                    //$imageObj = $imagineObj->open(\Yii::$app->basePath . $dir . $fileName);
-                    //$imageObj->resize($imageObj->getSize()->widen(400))->save(\Yii::$app->basePath . $dir . $fileName);
-                    
-                    Yii::$app->controller->createDirectory(Yii::getAlias('images/thumbs')); 
-//                     Image::thumbnail($dir . $fileName, 150, 112)
-//                     ->save(Yii::getAlias($dir .'thumbs/'. $fileName), ['quality' => 80]);
-					Image::thumbnail($dir . $fileName, 150, 90)
-                    ->save(Yii::getAlias($dir .'thumbs/'. $fileName), ['quality' => 80]);
-                }
-            }
-        }
 }

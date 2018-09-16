@@ -26,6 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'id',
             'name',
+            'catalog.name',
             //'description:ntext',
             'interval',
             'period',

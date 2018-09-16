@@ -68,6 +68,10 @@ class RoadController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+			$model->carid = 2; // Volkswagen
+			$model->date = date('Y-m-t');
+			$model->odometer = $model->prevval['odometer'];
+			$model->tank = $model->prevval['tank'];
             return $this->render('create', [
                 'model' => $model,
             ]);

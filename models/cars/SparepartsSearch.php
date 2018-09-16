@@ -65,6 +65,9 @@ class SparepartsSearch extends Spareparts
 
         $query->andFilterWhere(['like', 'partcode', $this->partcode])
             ->andFilterWhere(['like', 'description', $this->description]);
+            
+        
+        $query->orderBy('partcode');
 
         return $dataProvider;
     }

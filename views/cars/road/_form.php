@@ -15,25 +15,17 @@ use app\models\cars\Cars;
 
     <?php $form = ActiveForm::begin(); ?>
     
-    <?php if (!$model->date) $model->date = date('Y-m-t'); ?>
-    
     <?= $form->field($model, 'date')->widget(
             DatePicker::className(), [
                 'clientOptions' => [
                     'autoclose' => true,
                     'format' => 'yyyy-mm-dd'
                 ]
-            ]); Yii::warning(print_r($model, true));?>
-        
-    <?php if (!$model->carid) $model->carid = 1; ?>
+            ]);?>
         
     <?= $form->field($model, 'carid')->dropDownList(ArrayHelper::map(Cars::find()->all(), 'id', 'carname'), ['prompt'=>'']) ?>
-    
-    <?php if (!$model->odometer) $model->odometer = $model->prevval['odometer']; ?>
 
     <?= $form->field($model, 'odometer')->textInput() ?>
-    
-    <?php if (!$model->tank) $model->tank = $model->prevval['tank']; ?>
 
     <div class="row">
         <div class="col-xs-6">

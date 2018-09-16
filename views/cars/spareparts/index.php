@@ -25,11 +25,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            'model.name',
+//             'model.name',
             'partcode',
             'description:ntext',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+
+	<a href='https://volkswagen.7zap.com/ru/rdw/caddy/ca/2004-443/'>схемы запчастей</a>
 </div>

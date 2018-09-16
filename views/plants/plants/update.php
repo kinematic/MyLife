@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\plants\Plants */
 
 $this->title = $model->species->name . ' ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Расстения', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Растения', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Редактирование';
 ?>

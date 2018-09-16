@@ -20,8 +20,8 @@ class PlantsSearch extends Plants
     public function rules()
     {
         return [
-            [['id', 'plantspeciesid', 'name', 'speciesID'], 'integer'],
-            [['description'], 'safe'],
+            [['id', 'plantspeciesid', 'speciesID'], 'integer'],
+//             [['description'], 'safe'],
         ];
     }
 
@@ -61,18 +61,18 @@ class PlantsSearch extends Plants
         
         
         // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'plantspeciesid' => $this->plantspeciesid,
-            'name' => $this->name,
-        ]);
+//         $query->andFilterWhere([
+//             'id' => $this->id,
+//             'plantspeciesid' => $this->plantspeciesid,
+//             'name' => $this->name,
+//         ]);
 
-        $query->andFilterWhere(['like', 'description', $this->description]);
+//         $query->andFilterWhere(['like', 'description', $this->description]);
         $query->andFilterWhere(['plantspeciesid' => $this->speciesID]);
 
         //сортировка
         $query->innerJoinWith(['species']);
-        $query->orderBy('plants_species.name');
+        $query->orderBy('plants_species.name, name');
         
         return $dataProvider;
     }

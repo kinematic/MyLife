@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model app\models\plants\Plants */
 
 $this->title = 'Добавление';
-$this->params['breadcrumbs'][] = ['label' => 'Расстения', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Растения', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="plants-create">

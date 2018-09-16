@@ -8,7 +8,7 @@ use yii\bootstrap\Carousel;
 /* @var $model app\models\plants\Plants */
 
 $this->title = $model->species->name . ' ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Расстения', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Растения', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="plants-view">
@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'species.name',
             'name',
             'landing',
-            'description:ntext',
+            'description:html',
         ],
     ]) ?>
 

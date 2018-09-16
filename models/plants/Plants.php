@@ -17,10 +17,8 @@ use app\models\plants\Pictures;
 class Plants extends \yii\db\ActiveRecord
 {
 
-    public $file;
     public $delImg;
-    public $mainImg;
-
+    public $imageFiles;
 
     /**
      * @inheritdoc
@@ -37,15 +35,12 @@ class Plants extends \yii\db\ActiveRecord
     {
         return [
             [['plantspeciesid', 'name'], 'required'],
-            [['plantspeciesid'], 'integer'],
+            [['plantspeciesid', 'pictureid'], 'integer'],
             [['description', 'name'], 'string'],
-            [['file'], 'image', 'extensions' => 'png, jpg'],
-//             [['delImg'], 'safe'],
+			[['description', 'pictureid'], 'default', 'value' => null],
             ['delImg', 'each', 'rule' => ['integer']],
-//             ['mainImg', 'each', 'rule' => ['']],
-            ['mainImg', 'integer'],
-//             ['landing', 'date'],
-            [['landing'], 'date', 'format' => 'yyyy-M-d'],
+			[['landing'], 'safe'],
+			[['imageFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg', 'maxFiles' => 4,'checkExtensionByMimeType'=>false],
         ];
     }
 
@@ -55,13 +50,14 @@ class Plants extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-//             'id' => 'ID',
+            'id' => 'ID',
             'plantspeciesid' => 'вид',
             'species.name' => 'вид',
             'name' => 'название',
             'description' => 'описание',
             'landing' => 'год высадки',
-            'file' => 'фото',
+			'imageFiles' => 'загрузить фото',
+			'pictureid' => 'фото',
         ];
     }
     
@@ -81,11 +77,4 @@ class Plants extends \yii\db\ActiveRecord
         return $this->hasMany(Pictures::className(), ['plantid' => 'id']);
     }
     
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-//     public function getPicture()
-//     {
-//         return Pictures::find()->select('name')->where(['plantid' => $this->id])->limit(1)->one();
-//     }
 }

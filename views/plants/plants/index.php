@@ -10,7 +10,7 @@ use app\models\plants\Species;
 /* @var $searchModel app\models\plants\PlantsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Расстения';
+$this->title = 'Растения';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="plants-index">
@@ -27,16 +27,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [            
-                'attribute' => 'file',
+                'attribute' => 'pictureid',
                 'format' => 'raw',    
                 'value' => function($data) {
                 $image = Pictures::find()->select('name')
-	                ->where(['plantid' => $data->id, 'main' => 1])->asArray()->one();
-//                     return Html::img('/images/thumbs/' . $image['name']);
+	                ->where(['id' => $data->pictureid])->asArray()->one();
 					return Html::a(Html::img('/images/thumbs/' . $image['name']), ['plants/plants/view', 'id' => $data->id]);
                 },        
             ],
-//             'species.name',
             [
                 'attribute' => 'species.name',
                 'value' => 'species.name',
@@ -50,11 +48,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'class'=>'form-control',
                         'prompt' => '',
-//                         'options' => ['RBS' => ['selected' => 'selected']]
                     ])
             ],
             'name',
-            'description:ntext',
+            'description:html',
 
             ['class' => 'yii\grid\ActionColumn', 'contentOptions' =>['style' => 'white-space: nowrap']],
         ],

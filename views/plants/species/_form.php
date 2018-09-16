@@ -12,10 +12,15 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+
+<div class="row">
+	    <div class="col-sm-6">
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
+</div>
+	    <div class="col-sm-6">
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
-
+</div>
+</div>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Сохранить' : 'Сохранить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
