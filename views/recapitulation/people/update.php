@@ -7,10 +7,10 @@ use sjaakp\taggable\TagEditor;
 /* @var $this yii\web\View */
 /* @var $model app\models\recapitulation\People */
 
-$this->title = 'Update People: ' . $model->people_id;
-$this->params['breadcrumbs'][] = ['label' => 'Peoples', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->people_id, 'url' => ['view', 'id' => $model->people_id]];
-$this->params['breadcrumbs'][] = 'Update';
+// $this->title = 'Редактирование: ' . $model->fullname;
+$this->params['breadcrumbs'][] = ['label' => 'Люди', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->fullname, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = 'Редактирование';
 ?>
 <div class="people-update">
 

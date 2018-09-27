@@ -3,21 +3,19 @@
 namespace app\controllers\recapitulation;
 
 use Yii;
-use app\models\recapitulation\People;
-use app\models\recapitulation\PeopleSearch;
 use app\models\recapitulation\Secondnames;
-use app\models\recapitulation\Patronymicnames;
+use app\models\recapitulation\SecondnamesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * PeopleController implements the CRUD actions for People model.
+ * SecondnamesController implements the CRUD actions for Secondnames model.
  */
-class PeopleController extends Controller
+class SecondnamesController extends Controller
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function behaviors()
     {
@@ -32,12 +30,12 @@ class PeopleController extends Controller
     }
 
     /**
-     * Lists all People models.
+     * Lists all Secondnames models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new PeopleSearch();
+        $searchModel = new SecondnamesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -47,9 +45,10 @@ class PeopleController extends Controller
     }
 
     /**
-     * Displays a single People model.
+     * Displays a single Secondnames model.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
@@ -59,62 +58,49 @@ class PeopleController extends Controller
     }
 
     /**
-     * Creates a new People model.
+     * Creates a new Secondnames model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new People();
+        $model = new Secondnames();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
         }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
-     * Updates an existing People model.
+     * Updates an existing Secondnames model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			Yii::warning('переменные = ' . print_r($model, true));
-			if(!isset($model->secondnameid) and isset($model->secondname)){
-				$tmp = new Secondnames();
-				$tmp->name = $model->secondname;
-				$tmp->save();
-				$model->secondnameid = $tmp->id;
-				$model->save();
-			}
-			if(!isset($model->patronymicnameid) and isset($model->patronymicname)){
-				$tmp = new Patronymicnames();
-				$tmp->name = $model->patronymicname;
-				$tmp->save();
-				$model->patronymicnameid = $tmp->id;
-				$model->save();
-			}
             return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
         }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**
-     * Deletes an existing People model.
+     * Deletes an existing Secondnames model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)
     {
@@ -124,18 +110,18 @@ class PeopleController extends Controller
     }
 
     /**
-     * Finds the People model based on its primary key value.
+     * Finds the Secondnames model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return People the loaded model
+     * @return Secondnames the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = People::findOne($id)) !== null) {
+        if (($model = Secondnames::findOne($id)) !== null) {
             return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
         }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

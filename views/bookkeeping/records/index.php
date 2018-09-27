@@ -22,7 +22,7 @@ $this->params['balance'] = 10;
     <?php 
 // 		$this->balance = 10;
         $total = 0;
-Yii::warning(print_r($searchModel, true));
+// Yii::warning(print_r($searchModel, true));
 
 $models = $dataProvider->getModels();
 // print_r($models);

@@ -19,9 +19,10 @@ class PeopleSearch extends People
     public function rules()
     {
         return [
-            [['people_id'], 'integer'],
-            [['first_name', 'second_name', 'middle_name', 'description'], 'safe'],
+            [['id'], 'integer'],
+            [['firstname', 'description'], 'safe'],
             [['fullname'], 'safe'],
+			[['fullname'], 'trim'],
         ];
     }
 
@@ -43,7 +44,8 @@ class PeopleSearch extends People
      */
     public function search($params)
     {
-        $query = People::find()->orderBy('first_name, second_name');
+        $query = People::find();
+		$query->leftJoin('recapitulation_secondnames as rs', 'rs.id = secondnameid');
 
         // add conditions that should always apply here
 
@@ -56,10 +58,10 @@ class PeopleSearch extends People
 
         $dataProvider->setSort([
 	    'attributes' => [
-		'id',
+// 		'id',
 		'fullname' => [
-		    'asc' => ['first_name' => SORT_ASC, 'second_name' => SORT_ASC],
-		    'desc' => ['first_name' => SORT_DESC, 'second_name' => SORT_DESC],
+		    'asc' => ['firstname' => SORT_ASC],
+		    'desc' => ['firstname' => SORT_DESC],
 		    'label' => 'имя',
 		    'default' => SORT_ASC
 		],
@@ -75,21 +77,12 @@ class PeopleSearch extends People
             return $dataProvider;
         }
 
-        // grid filtering conditions
-//         $query->andFilterWhere([
-//             'people_id' => $this->people_id,
-//         ]);
+        $query->filterWhere(['like', 'firstname', $this->fullname]);
+		$query->orFilterWhere(['like', 'rs.name', $this->fullname]);
+		$query->andFilterWhere(['like', 'description', $this->description]);
 
-//         $query->andFilterWhere(['like', 'first_name', $this->first_name])
-//             ->andFilterWhere(['like', 'second_name', $this->second_name])
-//             ->andFilterWhere(['like', 'middle_name', $this->middle_name])
-//             ->andFilterWhere(['like', 'description', $this->description])
-// 	    $query->andWhere('first_name LIKE "%' . $this->fullname . '%" ' .
-// 	    'OR second_name LIKE "%' . $this->fullname . '%"');
-        $query->andFilterWhere(['or',
-            ['like', 'first_name', $this->fullname],
-            ['like', 'second_name', $this->fullname],
-        ]);
+		$query->orderBy('firstname, rs.name');
+
         return $dataProvider;
     }
 }

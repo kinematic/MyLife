@@ -64,6 +64,8 @@ $this->title = 'Моя жизнь';
                 <h2>Перепросмотр</h2>
 
                 <p><a class="btn btn-default" href="index.php?r=recapitulation/people">Люди</a></p>
+				<p><a class="btn btn-default" href="index.php?r=recapitulation/secondnames">Имена</a></p>
+				<p><a class="btn btn-default" href="index.php?r=recapitulation/patronymicnames">Отчества</a></p>
                 <p><a class="btn btn-default" href="index.php?r=recapitulation/places">Места</a></p>
                 <p><a class="btn btn-default" href="index.php?r=recapitulation/meetings">Встречи</a></p>
                 <p><a class="btn btn-default" href="index.php?r=recapitulation/tags">Свойства</a></p>

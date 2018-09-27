@@ -126,9 +126,24 @@ class PlantsController extends Controller
             
             //удаление картинок
             if(isset($model->delImg)) {
+				$dir = Yii::getAlias('images/');
                 foreach($model->delImg as $item) {
-                    Pictures::findOne($item)->delete();
+					$picture = Pictures::findOne($item);
+					unlink($dir . $picture->name);
+					if($item == $model->pictureid) {
+						unlink($dir . 'thumbs/' . $picture->name);
+						$model->pictureid = null;
+						$model->save();
+					}
+                    $picture->delete();
                 }
+
+				// назначение главной картинки если ее нет
+				if(!isset($model->pictureid)) {
+					$selectPicture = Pictures::find()->select('id')->where(['plantid' => $model->id])->limit(1)->one();
+					$model->pictureid = $selectPicture->id;
+					$model->save();
+				}
             }
             
 

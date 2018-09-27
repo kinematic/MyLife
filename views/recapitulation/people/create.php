@@ -7,8 +7,8 @@ use sjaakp\taggable\TagEditor;
 /* @var $this yii\web\View */
 /* @var $model app\models\recapitulation\People */
 
-$this->title = 'Create People';
-$this->params['breadcrumbs'][] = ['label' => 'Peoples', 'url' => ['index']];
+$this->title = 'Добавление';
+$this->params['breadcrumbs'][] = ['label' => 'Люди', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="people-create">

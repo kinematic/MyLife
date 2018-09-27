@@ -30,24 +30,20 @@ class UploadForm extends Model
     {
         if ($this->validate()) { 
             foreach ($this->imageFiles as $file) {
-					$dir = Yii::getAlias('images/');
+// 					print_r($file);
+// 					die();
+					$photo = Image::getImagine()->open($file->tempName);
+                    $dir = Yii::getAlias('images/');
                     $fileName = Yii::$app->getSecurity()->generateRandomString(15) . '.' . $file->extension;
-                    $file->saveAs($dir . $fileName);
-
+					$photo->thumbnail(new Box(800, 480))->save($dir . $fileName, ['quality' => 90]);
+					Image::thumbnail($dir . $fileName, 150, 90)
+                    ->save(Yii::getAlias($dir .'thumbs/'. $fileName), ['quality' => 80]);
 					$picture = new Pictures();
                     $picture->plantid = $this->modelID;
                     $picture->name = $fileName;
                     $picture->save();
                     $countPictures = Pictures::find()->where(['plantid' => $this->modelID])->count();
                     if($countPictures == 1) $this->mainImg = $picture->id;
-
-					$photo = Image::getImagine()->open($dir . $fileName);
-                    $photo->thumbnail(new Box(800, 480))->save($dir . $fileName, ['quality' => 90]);
-
-					Yii::$app->controller->createDirectory(Yii::getAlias('images/thumbs')); 
-
-					Image::thumbnail($dir . $fileName, 150, 90)
-                    ->save(Yii::getAlias($dir .'thumbs/'. $fileName), ['quality' => 80]);
             }
             return true;
         } else {

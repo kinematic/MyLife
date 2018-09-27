@@ -9,14 +9,16 @@ use sjaakp\taggable\TaggableBehavior;
 /**
  * This is the model class for table "{{%recapitulation_people}}".
  *
- * @property integer $people_id
- * @property string $first_name
- * @property string $second_name
- * @property string $middle_name
+ * @property integer $id
+ * @property string $firstname
+ * @property integer $secondnameid
+ * @property integer $patronymicnameid
  * @property string $description
  */
 class People extends \yii\db\ActiveRecord
 {
+	public $secondname;
+	public $patronymicname;
     /**
      * @inheritdoc
      */
@@ -32,10 +34,11 @@ class People extends \yii\db\ActiveRecord
     {
         return [
             [['description'], 'string'],
-            [['first_name', 'second_name', 'middle_name'], 'string', 'max' => 50],
+            [['firstname', 'secondname', 'patronymicname'], 'string', 'max' => 50],
+			[['firstname', 'secondname', 'patronymicname'], 'trim'],
             [['editorTags'], 'safe'],
-            [['first_name', 'middle_name', 'second_name', 'description'], 'default', 'value' => NULL],
-            //[['fullname'], 'safe'],
+            [['firstname', 'description'], 'default', 'value' => NULL],
+			[['secondnameid', 'patronymicnameid'], 'integer'],
         ];
     }
 
@@ -45,29 +48,38 @@ class People extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'people_id' => 'People ID',
-            'first_name' => 'фамилия',
-            'second_name' => 'имя',
-            'middle_name' => 'отчество',
+            'id' => 'ID',
+            'firstname' => 'фамилия',
+			'secondname' => 'имя',
+			'patronymicname' => 'отчество',
             'description' => 'описание',
             'fullname' => 'имя',
             'editorTags' => 'свойства',
         ];
     }
     
-    public function getFullname()
-    {
-        return trim($this->first_name . ' ' . $this->second_name);
+    public function behaviors()
+	{
+        return [
+            'taggable' => [
+                'class' => TaggableBehavior::className(),
+                'tagClass' => Tags::className(),
+                'junctionTable' => 'recapitulation_properties',
+            ]
+        ];
+    }
+
+    public function getSname() {
+         return $this->hasOne(Secondnames::className(), [ 'id' => 'secondnameid' ]);
+    }
+
+    public function getPname() {
+         return $this->hasOne(Patronymicnames::className(), [ 'id' => 'patronymicnameid' ]);
     }
     
-    public function behaviors()
-    	{
-	        return [
-	            'taggable' => [
-	                'class' => TaggableBehavior::className(),
-	                'tagClass' => Tags::className(),
-	                'junctionTable' => 'recapitulation_properties',
-	            ]
-	        ];
-	    }
+    public function getFullname()
+    {
+        return trim($this->firstname . ' ' . $this->sname['name'] . ' ' . $this->pname['name']);
+    }
+
 }
