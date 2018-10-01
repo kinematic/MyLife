@@ -52,6 +52,7 @@ use app\models\recapitulation\Patronymicnames;
 			<?= $form->field($model, 'patronymicname')->widget(
 			    AutoComplete::className(), [            
 			        'clientOptions' => [
+                        'placeholder' => 'выберете отчество',
 			            'source' => Patronymicnames::find()
 						    ->select(['name as value', 'name as label', 'id as id'])
 						    ->asArray()
@@ -68,7 +69,7 @@ use app\models\recapitulation\Patronymicnames;
 			        ]
 			    ]);
 			?>
-			<?= $form->field($model, 'patronymicnameid')->hiddenInput()->label(false);?>
+			<?= $form->field($model, 'patronymicnameid')->textInput()->label(false);?>
 		</div>
 	</div>
 	<div class="row">
