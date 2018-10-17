@@ -38,14 +38,10 @@ class RecordsController extends Controller
     {
         $searchModel = new RecordsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $sumDebit = round(Records::find()->where(['typeid' => 1])->sum('money * quantity'), 0);
-        $sumCredit = round(Records::find()->where(['typeid' => 2])->sum('money * quantity'), 0);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'sumDebit' => $sumDebit,
-            'sumCredit' => $sumCredit,
         ]);
     }
 

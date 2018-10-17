@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\bookkeeping\Records;
+use yii\db\Expression;
 
 /**
  * RecordsSearch represents the model behind the search form about `app\models\bookkeeping\Records`.
@@ -16,6 +17,8 @@ class RecordsSearch extends Records
     public $catalogName;
     public $dateBegin;
     public $dateEnd;
+	public $totalDebet;
+	public $totalCredit;
 
     /**
      * @inheritdoc
@@ -25,7 +28,7 @@ class RecordsSearch extends Records
         return [
             [['id', 'typeid', 'accountid', 'catalogid'], 'integer'],
             [['date', 'dateBegin', 'dateEnd', 'catalogName'], 'safe'],
-            [['money'], 'number'],
+            [['money', 'totalDebet', 'totalCredit'], 'number'],
         ];
     }
     
@@ -59,7 +62,14 @@ class RecordsSearch extends Records
      */
     public function search($params)
     {
+		Yii::$app->db->createCommand('SET @total:=0')->execute();
+		$expression = new Expression('
+			*,
+			if(typeid=1, @total:=@total+quantity*money, @total:=@total-quantity*money) AS balance
+		');
         $query = Records::find();
+		$query->select($expression);
+// 		$query->select(['id', 'date', 'catalogid', 'description', 'money', 'quantity', '2+money sum']);
 
         // add conditions that should always apply here
 
@@ -97,6 +107,16 @@ class RecordsSearch extends Records
         $query->andFilterWhere(['<=', 'date', $this->dateEnd]);
         
         $query->orderBy('date DESC');
+
+		$this->totalDebet = round(Records::find()
+			->where(['typeid' => 1])
+			->andFilterWhere(['accountid' => $this->accountid])
+			->sum('money * quantity'), 0);
+		
+		$this->totalCredit = round(Records::find()
+			->where(['typeid' => 2])
+			->andFilterWhere(['accountid' => $this->accountid])
+			->sum('money * quantity'), 0);
         
         return $dataProvider;
     }

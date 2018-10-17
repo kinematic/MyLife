@@ -17,6 +17,7 @@ use Yii;
  */
 class Records extends \yii\db\ActiveRecord
 {
+    public $balance;
     /**
      * @inheritdoc
      */
@@ -34,7 +35,7 @@ class Records extends \yii\db\ActiveRecord
             [['typeid', 'accountid', 'catalogid', 'date', 'money', 'quantity'], 'required'],
             [['typeid', 'accountid', 'catalogid'], 'integer'],
             [['date'], 'safe'],
-            [['money', 'quantity'], 'number'],
+            [['money', 'quantity', 'balance'], 'number'],
             [['description'], 'string', 'max' => 255],
         ];
     }
@@ -57,6 +58,7 @@ class Records extends \yii\db\ActiveRecord
             'quantity' => 'количество',
 			'total' => 'всего, грн',
             'description' => 'описание',
+			'balance' => 'баланс, грн',
         ];
     }
     

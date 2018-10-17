@@ -20,19 +20,11 @@ use app\models\bookkeeping\Accounts;
         'type' => ActiveForm::TYPE_INLINE,
     ]); ?>
     
-    <?= $form->field($model, 'typeid')->dropDownList(array('1' => 'приход', '2' => 'расход'), 
-            [
-                    'prompt' => '', 
-// 			'options' => ['RBS' => ['selected' => 'selected']],
-            ]) 
-    ?>
+<div class="row">
+
+    <?= $form->field($model, 'typeid')->dropDownList(array('1' => 'приход', '2' => 'расход'), ['prompt' => '']) ?>
     
-    <?= $form->field($model, 'accountid')->dropDownList(ArrayHelper::map(Accounts::find()->addOrderBy('name')->all(), 'id', 'name'), 
-            [
-                    'prompt' => '', 
-// 			'options' => ['RBS' => ['selected' => 'selected']],
-            ]) 
-    ?>    
+    <?= $form->field($model, 'accountid')->dropDownList(ArrayHelper::map(Accounts::find()->addOrderBy('name')->all(), 'id', 'name'), ['prompt' => '']) ?>    
     
     <?= $form->field($model, 'catalogName'); ?>
     
@@ -57,7 +49,7 @@ use app\models\bookkeeping\Accounts;
         <?= Html::submitButton('Искать', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Очистить', ['class' => 'btn btn-default']) ?>
     </div>
-
+</div>
     <?php ActiveForm::end(); ?>
 
 </div>

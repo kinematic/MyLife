@@ -87,23 +87,13 @@ class PeopleController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			Yii::warning('переменные = ' . print_r($model, true));
-			if(!isset($model->secondnameid) and isset($model->secondname)){
-				$tmp = new Secondnames();
-				$tmp->name = $model->secondname;
-				$tmp->save();
-				$model->secondnameid = $tmp->id;
-				$model->save();
-			}
-			if(!isset($model->patronymicnameid) and isset($model->patronymicname)){
-				$tmp = new Patronymicnames();
-				$tmp->name = $model->patronymicname;
-				$tmp->save();
-				$model->patronymicnameid = $tmp->id;
-				$model->save();
-			}
+			$this->setValFromDirectory($model, 'Secondnames', 'secondname', 'secondnameid');
+			$this->setValFromDirectory($model, 'Patronymicnames', 'patronymicname', 'patronymicnameid');
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+			if(isset($model->sname->name)) $model->secondname = $model->sname->name;
+			if(isset($model->pname['name'])) $model->patronymicname = $model->pname['name'];
             return $this->render('update', [
                 'model' => $model,
             ]);
@@ -121,6 +111,7 @@ class PeopleController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+        
     }
 
     /**
@@ -138,4 +129,23 @@ class PeopleController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+	private function setValFromDirectory($model, $directory, $string, $directoryid){
+		if(isset($model->$string)){
+			$directory = 'app\\models\\recapitulation\\' . $directory;
+			$tmp = $directory::findOne(['name' => $model->$string]);
+			if(!$tmp){
+				$tmp2 = new $directory();
+				$tmp2->name = $model->$string;
+				$tmp2->save();
+				$model->$directoryid = $tmp2->id;
+				$model->save();
+			} else {
+				if($tmp->id <> $model->$directoryid) {
+					$model->$directoryid = $tmp->id;
+					$model->save();
+				}
+			}
+		}
+	}
 }

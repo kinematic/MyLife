@@ -23,53 +23,37 @@ use app\models\recapitulation\Patronymicnames;
 		    <?= $form->field($model, 'firstname')->textInput(['maxlength' => true]) ?>
 		</div>
 		<div class="col-sm-4">
-			<?php
-				$model->secondname = $model->sname->name;
-			?>
 			<?= $form->field($model, 'secondname')->widget(
 			    AutoComplete::className(), [            
 			        'clientOptions' => [
 			            'source' => Secondnames::find()
-						    ->select(['name as value', 'name as label', 'id as id'])
+						    ->select(['name as value', 'name as label'])
+							->orderBy('name')
 						    ->asArray()
 						    ->all(),
-							'select' => new JsExpression("function( event, ui ) {
-							        console.log(ui);
-							        $('#people-secondnameid').val(ui.item.id);
-							      }"),
 			        ],
 			        'options'=>[
 			            'class'=>'form-control'
 			        ]
 			    ]);
 			?>
-			<?= $form->field($model, 'secondnameid')->hiddenInput()->label(false);?>
 		</div>
 		<div class="col-sm-4">
-			<?php
-				$model->patronymicname = $model->pname['name'];
-			?>
 			<?= $form->field($model, 'patronymicname')->widget(
 			    AutoComplete::className(), [            
 			        'clientOptions' => [
                         'placeholder' => 'выберете отчество',
 			            'source' => Patronymicnames::find()
-						    ->select(['name as value', 'name as label', 'id as id'])
+						    ->select(['name as value', 'name as label'])
+							->orderBy('name')
 						    ->asArray()
 						    ->all(),
-							'autoFill'=>true,
-							'minLength'=>'0',
-							'select' => new JsExpression("function( event, ui ) {
-							        console.log(ui);
-							        $('#people-patronymicnameid').val(ui.item.id);
-							      }"),
 			        ],
 			        'options'=>[
 			            'class'=>'form-control'
 			        ]
 			    ]);
 			?>
-			<?= $form->field($model, 'patronymicnameid')->textInput()->label(false);?>
 		</div>
 	</div>
 	<div class="row">
