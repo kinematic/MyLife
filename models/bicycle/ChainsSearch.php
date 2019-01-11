@@ -1,16 +1,16 @@
 <?php
 
-namespace app\models\tracing;
+namespace app\models\bicycle;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\tracing\Tags;
+use app\models\bicycle\Chains;
 
 /**
- * TagsSearch represents the model behind the search form of `app\models\tracing\Tags`.
+ * ChainsSearch represents the model behind the search form of `app\models\bicycle\Chains`.
  */
-class TagsSearch extends Tags
+class ChainsSearch extends Chains
 {
     /**
      * {@inheritdoc}
@@ -18,8 +18,9 @@ class TagsSearch extends Tags
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['name'], 'safe'],
+            [['id', 'chainid', 'bikeid'], 'integer'],
+            [['date'], 'safe'],
+            [['size'], 'number'],
         ];
     }
 
@@ -41,7 +42,7 @@ class TagsSearch extends Tags
      */
     public function search($params)
     {
-        $query = Tags::find();
+        $query = Chains::find();
 
         // add conditions that should always apply here
 
@@ -60,10 +61,12 @@ class TagsSearch extends Tags
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'chainid' => $this->chainid,
+            'bikeid' => $this->bikeid,
+            'date' => $this->date,
+            'size' => $this->size,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
-        $query->orderBy('name');
         return $dataProvider;
     }
 }

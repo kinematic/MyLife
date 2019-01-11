@@ -17,10 +17,6 @@ $this->params['balance'] = 10;
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php echo $this->render('_search', ['model' => $searchModel]);?>
-
-    <p>
-        <?= Html::a('Добавить', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
     
     <?= '<p><b>Дебет:</b> ' . $searchModel->totalDebet . ', <b>Кредит:</b> ' . $searchModel->totalCredit . ', <b>Баланс:</b> ' . ($searchModel->totalDebet - $searchModel->totalCredit);?>
 

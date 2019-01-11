@@ -20,21 +20,28 @@ use app\models\cars\Road;
 		if(!$model->date) $model->date = date('Y-m-d');
 		if(!$model->charge) $model->charge = 30;
 	?>
-    <?= $form->field($model, 'road_id')->dropDownList(ArrayHelper::map(Road::find()->orderBy(['date' => SORT_DESC])->all(), 'id', 'roadname'), ['prompt'=>'']) ?>
-
-    <?= $form->field($model, 'date')->widget(
-            DatePicker::className(), [
-                'clientOptions' => [
-                    'autoclose' => true,
-                    'format' => 'yyyy-mm-dd'
-                ]
-        ]); 
-        ?>   
-
-    <?= $form->field($model, 'charge')->textInput() ?>
+    <div class="row">
+        <div class="col-md-4">
+            <?= $form->field($model, 'road_id')->dropDownList(ArrayHelper::map(Road::find()->orderBy(['date' => SORT_DESC])->all(), 'id', 'roadname'), ['prompt'=>'']) ?>
+        </div>
+        <div class="col-md-4">
     
-    <?= $form->field($model, 'odometer')->textInput() ?>
-
+            <?= $form->field($model, 'date')->widget(
+                    DatePicker::className(), [
+                        'clientOptions' => [
+                            'autoclose' => true,
+                            'format' => 'yyyy-mm-dd'
+                        ]
+                ]); 
+                ?>   
+        </div>
+        <div class="col-md-2">
+            <?= $form->field($model, 'charge')->textInput() ?>
+        </div>
+        <div class="col-md-2">    
+            <?= $form->field($model, 'odometer')->textInput() ?>
+        </div>
+    </div>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Сохранить' : 'Сохранить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

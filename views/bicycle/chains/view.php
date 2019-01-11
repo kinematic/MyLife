@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\bookkeeping\Records */
+/* @var $model app\models\bicycle\Chains */
 
-$this->title = $model->recordname;
-$this->params['breadcrumbs'][] = ['label' => 'Проводки', 'url' => ['index']];
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Цепи', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="records-view">
+<div class="chains-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -24,19 +24,17 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-	<div class='row'>
-		<div class='col-md-4'>
+	<div class="row">
+		<div class="col-md-4">
 		    <?= DetailView::widget([
 		        'model' => $model,
 		        'attributes' => [
-		            'operation',
-		            'account.name',
-		            'catalog.name',
+		            'id',
+		            'chainid',
+		            'bikeid',
 		            'date',
-		            'quantity',
-		            'money',
-					'total',
-		            'description',
+		            'size',
+					'wear',
 		        ],
 		    ]) ?>
 		</div>

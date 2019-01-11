@@ -51,8 +51,11 @@ class NotesController extends Controller
      */
     public function actionView($id)
     {
+		$model = $this->findModel($id);
+// 		$model->description = nl2br($model->description);
+// 		$model->description = preg_replace('/\s{3,}/', "<p style='text-indent: 20px'>", $model->description);
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
 

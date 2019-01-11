@@ -11,11 +11,16 @@ use yii\widgets\ActiveForm;
 <div class="catalog-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
-
+<div class="row">
+	<div class="col-md-5">
+	    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-5">
+	    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+	</div>
+</div>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Сохранить' : 'Сохранить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

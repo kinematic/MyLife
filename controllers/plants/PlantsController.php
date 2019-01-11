@@ -4,15 +4,12 @@ namespace app\controllers\plants;
 
 use Yii;
 use app\models\plants\Plants;
+use app\models\plants\Species;
 use app\models\plants\PlantsSearch;
 use app\models\plants\Pictures;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-// use yii\imagine\Image;
-// use Imagine\Gd;
-// use Imagine\Image\Box;
-// use Imagine\Image\BoxInterface;
 use yii\web\UploadedFile;
 use app\models\UploadForm;
 
@@ -79,6 +76,9 @@ class PlantsController extends Controller
     {
         $model = new Plants();
 
+		$species = null;
+		$species = new Species();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
 			$uploads = new UploadForm();
@@ -97,6 +97,7 @@ class PlantsController extends Controller
         } else {
             return $this->render('create', [
                 'model' => $model,
+				'species' => $species,
             ]);
         }
     }
@@ -115,6 +116,8 @@ class PlantsController extends Controller
 
 			$uploads = new UploadForm();
 			$uploads->imageFiles = UploadedFile::getInstances($model, 'imageFiles');
+// 					print_r($uploads->imageFiles);
+// 					die();
 			$uploads->modelID = $model->id;
 			$uploads->upload();
 
@@ -145,12 +148,15 @@ class PlantsController extends Controller
 					$model->save();
 				}
             }
-            
 
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+			$species = null;
+			$species = new Species();
+
             return $this->render('update', [
                 'model' => $model,
+				'species' => $species,
             ]);
         }
     }

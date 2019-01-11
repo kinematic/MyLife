@@ -66,7 +66,7 @@ class Tags extends \yii\db\ActiveRecord
     }
  
     public function getPeople() {
-        return $this->hasMany(People::className(), [ 'people_id' => 'model_id' ])
+        return $this->hasMany(People::className(), [ 'id' => 'model_id' ])
             ->viaTable('recapitulation_properties', [ 'tag_id' => 'id' ]);
     }
 }

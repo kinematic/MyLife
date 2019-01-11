@@ -7,7 +7,42 @@ use app\models\plants\Species;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use dosamigos\datepicker\DatePicker;
+use yii\bootstrap\Modal;
 
+Modal::begin([
+ 'header' => '<h2>Добавление вида растения</h2>',
+ 'toggleButton' => [
+	'label' => 'добавить вид',
+	'tag' => 'button',
+	'class' => 'btn btn-success',
+],
+//  'footer' => 'Низ окна',
+]);
+
+// echo 'Say hello...';
+?>
+<div class="species-form">
+
+    <?php $form = ActiveForm::begin(['action' => '/index.php?r=plants%2Fspecies%2Fcreatefrommodal']); ?>
+
+	<div class="row">
+		    <div class="col-md-6">
+			    <?//= $form->field($species, 'name')->textInput(['maxlength' => true]) ?>
+			</div>
+		    <div class="col-md-6">
+			    <?//= $form->field($species, 'description')->textarea(['rows' => 6]) ?>
+			</div>
+	</div>
+    <div class="form-group">
+        <?//= Html::submitButton($species->isNewRecord ? 'Сохранить' : 'Сохранить', ['class' => $species->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+
+</div>
+
+<?php 
+Modal::end();
 
 /* @var $this yii\web\View */
 /* @var $model app\models\plants\Plants */
@@ -19,21 +54,25 @@ use dosamigos\datepicker\DatePicker;
     <?php $form = ActiveForm::begin(); ?>
 
 	<div class="row">
-	    <div class="col-sm-6">
+	    <div class="col-md-6">
 		<?= $form->field($model, 'plantspeciesid')
 		->dropDownList(ArrayHelper::map(Species::find()
 		->orderBy('name')
-		->all(), 'id', 'name'), ['prompt'=>''])->label('вид расстения ' . Html::a('<span class="glyphicon glyphicon-plus"></span>', ['plants/species/create', 'Charges[road_id]' => $model->id], ['title' => Yii::t('yii', 'добавить')])); ?>
+		->all(), 'id', 'name'), ['prompt'=>''])->label('
+			вид расстения ' . Html::a('<span class="glyphicon glyphicon-plus"></span>', 
+			['plants/species/create', 'Plants[id]' => $model->id], 
+			['title' => Yii::t('yii', 'добавить')])); ?>
 		<?= $form->field($model, 'name')->textInput() ?>
 		<?= $form->field($model, 'landing')->widget(
             DatePicker::className(), [
                 'clientOptions' => [
                     'autoclose' => true,
-                    'format' => 'yyyy-mm-dd'
+                    'format' => 'yyyy-mm-dd',
+                    'todayHighlight' => true,
                 ]
         ]);  ?>
 		</div>
-	    <div class="col-sm-6">
+	    <div class="col-md-6">
 		<?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 		</div>
 	</div>

@@ -16,12 +16,17 @@ use app\models\notes\Categories;
     
     <div class="row">
         <div class="col-sm-6">
-        <?= $form->field($model, 'categoryid')->dropDownList(ArrayHelper::map(Categories::find()->OrderBy('name')->all(), 'id', 'name')) ?>
+            <?= $form->field($model, 'categoryid')->dropDownList(ArrayHelper::map(Categories::find()->OrderBy('name')->all(),
+                'id', 'name'))->label('категория ' . 
+                Html::a(
+                '<span class="glyphicon glyphicon-plus"></span>', 
+                ['notes/categories/create', 'Notes[id]' => $model->id], 
+                ['title' => Yii::t('yii', 'добавить'), 'name' => 'notes']),['class'=>'label-class']) ?>
 
-        <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-sm-6">
-        <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+            <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
         </div>
     </div>
     

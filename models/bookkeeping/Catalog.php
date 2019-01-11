@@ -44,4 +44,9 @@ class Catalog extends \yii\db\ActiveRecord
             'description' => 'описание',
         ];
     }
+
+	public function getRecord()
+	{
+		return $this->hasMany(Records::className(), ['catalogid' => 'id']);;
+	}
 }

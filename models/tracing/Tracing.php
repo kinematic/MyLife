@@ -7,12 +7,16 @@ use Yii;
 /**
  * This is the model class for table "tracing_tracing".
  *
- * @property int $id
- * @property int $groupid
- * @property int $tagid
+ * @property int $trace_id
+ * @property int $model_id
+ * @property int $tag_id
+ * @property int $ord
  */
 class Tracing extends \yii\db\ActiveRecord
 {
+
+	public $tag_name;
+
     /**
      * {@inheritdoc}
      */
@@ -27,8 +31,10 @@ class Tracing extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['group_id', 'tag_id'], 'required'],
-            [['group_id', 'tag_id'], 'integer'],
+            [['model_id', 'tag_id'], 'required'],
+			[['tag_name'], 'required'],
+			[['tag_name'], 'string'],
+            [['model_id', 'tag_id', 'ord'], 'integer'],
         ];
     }
 
@@ -38,9 +44,30 @@ class Tracing extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'trace_id' => 'ID',
-            'group_id' => 'Groupid',
-            'tag_id' => 'Tagid',
+            'trace_id' => 'id',
+            'model_id' => 'группа',
+            'tag_id' => 'движение',
+			'tag_name' => 'движение',
+            'ord' => 'порядок',
         ];
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTagsorderlist()
+    {
+		return (new \yii\db\Query())
+		    ->select(['tt.ord', 'concat(tt.ord, " ", ta.name) name'])
+		    ->from('tracing_tags ta')	
+			->leftJoin('tracing_tracing tt', 'tt.tag_id = ta.id')
+			->where('tt.model_id = ' . $this->model_id)
+			->orderBy('tt.ord DESC')
+			->all();
+    }
+
+	public function getTags()
+    {
+		$this->hasMany(Tags::className(), ['id' => 'tag_id']);
+	}
 }

@@ -5,12 +5,12 @@ namespace app\models\tracing;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\tracing\Tags;
+use app\models\tracing\Tracing;
 
 /**
- * TagsSearch represents the model behind the search form of `app\models\tracing\Tags`.
+ * TracingSearch represents the model behind the search form of `app\models\tracing\Tracing`.
  */
-class TagsSearch extends Tags
+class TracingSearch extends Tracing
 {
     /**
      * {@inheritdoc}
@@ -18,8 +18,7 @@ class TagsSearch extends Tags
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['name'], 'safe'],
+            [['trace_id', 'model_id', 'tag_id', 'ord'], 'integer'],
         ];
     }
 
@@ -41,7 +40,7 @@ class TagsSearch extends Tags
      */
     public function search($params)
     {
-        $query = Tags::find();
+        $query = Tracing::find();
 
         // add conditions that should always apply here
 
@@ -59,11 +58,12 @@ class TagsSearch extends Tags
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            'trace_id' => $this->trace_id,
+            'model_id' => $this->model_id,
+            'tag_id' => $this->tag_id,
+            'ord' => $this->ord,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
-        $query->orderBy('name');
         return $dataProvider;
     }
 }

@@ -36,7 +36,20 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Проводки', 'url' => ['/bookkeeping/records']],
+            [
+				'label' => 'Бухгалтерия', 
+// 				'url' => ['/bookkeeping/records'],
+				'items' => [
+		            [
+						'label' => 'Проводки', 
+						'url' => ['/bookkeeping/records']
+					],		            
+					[
+						'label' => 'Ценности', 
+						'url' => ['/bookkeeping/catalog']
+					],
+				],
+			],
             ['label' => 'Заметки', 'url' => ['/notes/notes']],
 //             ['label' => 'About', 'url' => ['/site/about']],
 //             ['label' => 'Contact', 'url' => ['/site/contact']],

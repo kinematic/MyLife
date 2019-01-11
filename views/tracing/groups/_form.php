@@ -13,18 +13,27 @@ use sjaakp\taggable\TagEditor;
 <div class="groups-form">
 
     <?php $form = ActiveForm::begin(); ?>
+	
+	<div class="row">
+		<div class="col-md-6">
 
-    <?= $form->field($model, 'date')->textInput() ?>
+		    <?= $form->field($model, 'date')->textInput() ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-    
-    <?= $form->field($model, 'editorTags')->widget(TagEditor::className(), [
-        'tagEditorOptions' => [
-            'autocomplete' => [
-                'source' => Url::toRoute(['tracing/tags/suggest'])
-            ],
-        ]
-    ]) ?>
+		    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+
+		 </div>
+		 <div class="col-md-6">  
+ 
+		    <?= $form->field($model, 'editorTags')->widget(TagEditor::className(), [
+		        'tagEditorOptions' => [
+		            'autocomplete' => [
+		                'source' => Url::toRoute(['tracing/tags/suggest'])
+		            ],
+		        ]
+		    ]) ?>
+
+		</div>
+	</div>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

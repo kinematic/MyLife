@@ -29,6 +29,7 @@ class RecordsSearch extends Records
             [['id', 'typeid', 'accountid', 'catalogid'], 'integer'],
             [['date', 'dateBegin', 'dateEnd', 'catalogName'], 'safe'],
             [['money', 'totalDebet', 'totalCredit'], 'number'],
+			[['description'], 'string', 'max' => 255],
         ];
     }
     
@@ -41,6 +42,7 @@ class RecordsSearch extends Records
             'catalogName' => 'ценность',
             'dateBegin' => 'с даты',
             'dateEnd' => 'по дату',
+			'description' => 'описание',
         ];
     }
 
@@ -62,14 +64,13 @@ class RecordsSearch extends Records
      */
     public function search($params)
     {
-		Yii::$app->db->createCommand('SET @total:=0')->execute();
-		$expression = new Expression('
-			*,
-			if(typeid=1, @total:=@total+quantity*money, @total:=@total-quantity*money) AS balance
-		');
+// 		Yii::$app->db->createCommand('SET @total:=0')->execute();
+// 		$expression = new Expression('
+// 			*,
+// 			if(typeid=1, @total:=@total+quantity*money, @total:=@total-quantity*money) AS balance
+// 		');
         $query = Records::find();
-		$query->select($expression);
-// 		$query->select(['id', 'date', 'catalogid', 'description', 'money', 'quantity', '2+money sum']);
+// 		$query->select($expression);
 
         // add conditions that should always apply here
 
@@ -100,8 +101,8 @@ class RecordsSearch extends Records
             'typeid' => $this->typeid,
             'accountid' => $this->accountid,
             'catalogid' => $tmpArray,
-            'date' => $this->date,
         ]);
+		$query->andFilterWhere(['like', 'description', $this->description]);
         
         $query->andFilterWhere(['>=', 'date', $this->dateBegin]);
         $query->andFilterWhere(['<=', 'date', $this->dateEnd]);
@@ -111,12 +112,24 @@ class RecordsSearch extends Records
 		$this->totalDebet = round(Records::find()
 			->where(['typeid' => 1])
 			->andFilterWhere(['accountid' => $this->accountid])
+			->andFilterWhere(['>=', 'date', $this->dateBegin])
+            ->andFilterWhere(['<=', 'date', $this->dateEnd])
 			->sum('money * quantity'), 0);
 		
 		$this->totalCredit = round(Records::find()
 			->where(['typeid' => 2])
 			->andFilterWhere(['accountid' => $this->accountid])
+			->andFilterWhere(['>=', 'date', $this->dateBegin])
+            ->andFilterWhere(['<=', 'date', $this->dateEnd])
 			->sum('money * quantity'), 0);
+
+// 		$this->totalDebet = round($query
+// 			->where(['typeid' => 1])
+// 			->sum('money * quantity'), 0);
+// 		
+// 		$this->totalCredit = round($query
+// 			->where(['typeid' => 2])
+// 			->sum('money * quantity'), 0);
         
         return $dataProvider;
     }

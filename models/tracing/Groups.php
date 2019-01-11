@@ -58,4 +58,32 @@ class Groups extends \yii\db\ActiveRecord
             ]
         ];
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTags()
+    {
+		return (new \yii\db\Query())
+		    ->select('tt.trace_id id, ta.name, tt.ord ord')
+		    ->from('tracing_tags ta')	
+			->leftJoin('tracing_tracing tt', 'tt.tag_id = ta.id')
+			->where('tt.model_id = ' . $this->id)
+			->orderBy('tt.ord DESC')
+			->all();
+    }
+
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMaxord()
+    {
+		return (new \yii\db\Query())
+		    ->select('ord')
+		    ->from('tracing_tracing tt')	
+			->where('tt.model_id = ' . $this->id)
+			->max('tt.ord')
+			;
+    }
 }

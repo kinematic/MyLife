@@ -18,21 +18,22 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Добавить показания', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            //['class' => 'yii\grid\SerialColumn'],
+	<div class='row'>
+		<div class='col-md-4'>
+		    <?= GridView::widget([
+		        'dataProvider' => $dataProvider,
+		        'filterModel' => $searchModel,
+		        'columns' => [
+		            'date',
+		            'indications',
+					'consumption',
 
-            //'id',
-            'date',
-            'indications',
-			'consumption',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); 
-// print_r($this);
-
-?>
+		            [
+						'class' => 'yii\grid\ActionColumn', 
+						'contentOptions' => ['style' => 'white-space: nowrap']],
+			        ],
+		    ]); 
+			?>
+		</div>
+	</div>
 </div>

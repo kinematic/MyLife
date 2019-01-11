@@ -1,21 +1,21 @@
 <?php
 
-namespace app\controllers\cars;
+namespace app\controllers\bicycle;
 
 use Yii;
-use app\models\cars\Spareparts;
-use app\models\cars\SparepartsSearch;
+use app\models\bicycle\Chains;
+use app\models\bicycle\ChainsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * SparepartsController implements the CRUD actions for Spareparts model.
+ * ChainsController implements the CRUD actions for Chains model.
  */
-class SparepartsController extends Controller
+class ChainsController extends Controller
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function behaviors()
     {
@@ -30,12 +30,12 @@ class SparepartsController extends Controller
     }
 
     /**
-     * Lists all Spareparts models.
+     * Lists all Chains models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new SparepartsSearch();
+        $searchModel = new ChainsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,9 +45,10 @@ class SparepartsController extends Controller
     }
 
     /**
-     * Displays a single Spareparts model.
+     * Displays a single Chains model.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
@@ -57,29 +58,29 @@ class SparepartsController extends Controller
     }
 
     /**
-     * Creates a new Spareparts model.
+     * Creates a new Chains model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Spareparts();
+        $model = new Chains();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-			$model->modelid = 2;
-            return $this->render('create', [
-                'model' => $model,
-            ]);
         }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
-     * Updates an existing Spareparts model.
+     * Updates an existing Chains model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
@@ -87,18 +88,19 @@ class SparepartsController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
         }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**
-     * Deletes an existing Spareparts model.
+     * Deletes an existing Chains model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)
     {
@@ -108,18 +110,18 @@ class SparepartsController extends Controller
     }
 
     /**
-     * Finds the Spareparts model based on its primary key value.
+     * Finds the Chains model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Spareparts the loaded model
+     * @return Chains the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Spareparts::findOne($id)) !== null) {
+        if (($model = Chains::findOne($id)) !== null) {
             return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
         }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

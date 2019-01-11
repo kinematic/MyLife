@@ -75,6 +75,20 @@ class SpeciesController extends Controller
         }
     }
 
+	public function actionCreatefrommodal()
+    {
+        $model = new Species();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+//             return $this->redirect(['view', 'id' => $model->id]);
+//             return $this->redirect(['index']);
+        } else {
+//             return $this->render('create', [
+//                 'model' => $model,
+//             ]);
+        }
+    }
+
     /**
      * Updates an existing Species model.
      * If update is successful, the browser will be redirected to the 'view' page.

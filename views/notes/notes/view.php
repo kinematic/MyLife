@@ -32,7 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
 //             'id',
             'category.name',
 //             'name',
-            'description:html',
+//             'description:html',
+			'description:html',
         ],
     ]) ?>
 

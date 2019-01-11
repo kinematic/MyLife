@@ -20,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Добавить', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -36,8 +37,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'categoryID', 
                     ArrayHelper::map(Categories::find()->select(['id', 'name'])->asArray()->orderBy(['name' => SORT_ASC])->all(), 
                     'id',
-					'name'
-					),
+                    'name'
+                    ),
                     [
                         'class'=>'form-control',
                         'prompt' => '',
@@ -50,4 +51,5 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+
 </div>

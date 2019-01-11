@@ -12,18 +12,22 @@ use dosamigos\datepicker\DatePicker;
 <div class="electro-form">
 
     <?php $form = ActiveForm::begin(); ?>
-	
-	<?php if (!$model->date) $model->date = date('Y-m-t'); ?>
+	<div class='row'>
+		<div class='col-md-3'>
+			<?php if (!$model->date) $model->date = date('Y-m-t'); ?>
+		    <?= $form->field($model, 'date')->widget(
+	            DatePicker::className(), [
+	                'clientOptions' => [
+	                    'autoclose' => true,
+	                    'format' => 'yyyy-mm-dd'
+	                ]
+	            ]); ?>
+		</div>
+	    <div class='col-md-3'>
+			<?= $form->field($model, 'indications')->textInput() ?>
+		</div>
+	</div>
     
-    <?= $form->field($model, 'date')->widget(
-            DatePicker::className(), [
-                'clientOptions' => [
-                    'autoclose' => true,
-                    'format' => 'yyyy-mm-dd'
-                ]
-            ]); ?>
-
-    <?= $form->field($model, 'indications')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Сохранить' : 'Сохранить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         $dataProvider = new ArrayDataProvider([
             'allModels' => $model->people,
-            'key' => 'people_id',
+            'key' => 'id',
 			'sort' => [
 				//'attributes' => ['first_name', 'second_name'],
 				'defaultOrder' => [
@@ -41,8 +41,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
 				'attributes' => [
 					'fullname' => [
-                        'asc' => ['first_name' => SORT_ASC, 'second_name' => SORT_ASC],
-                        'desc' => ['first_name' => SORT_DESC, 'second_name' => SORT_DESC],
+                        'asc' => ['firstname' => SORT_ASC, 'sname' => SORT_ASC],
+                        'desc' => ['firstname' => SORT_DESC, 'sname' => SORT_DESC],
                         'default' => SORT_DESC
                    ],
 				],
@@ -58,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'fullname',
                 'value' => function ($data) {
-                    return Html::a(Html::encode($data->fullname), Url::to(['recapitulation/people/view', 'id' => $data->people_id]));
+                    return Html::a(Html::encode($data->fullname), Url::to(['recapitulation/people/view', 'id' => $data->id]));
                 },
                 'format' => 'raw',
                 'contentOptions' =>['style' => 'white-space: nowrap'],

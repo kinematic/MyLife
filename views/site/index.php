@@ -56,8 +56,7 @@ $this->title = 'Моя жизнь';
             </div>
             <div class="col-lg-4">
                 <h2>Отслеживание</h2>
-
-                <p><a class="btn btn-default" href="index.php?r=tracing/tracing">Отслеживание</a></p>
+                <p><a class="btn btn-default" href="index.php?r=tracing/tags">Действия</a></p>
 				<p><a class="btn btn-default" href="index.php?r=tracing/groups">Группы</a></p>
             </div>
             <div class="col-lg-4">
@@ -69,6 +68,11 @@ $this->title = 'Моя жизнь';
                 <p><a class="btn btn-default" href="index.php?r=recapitulation/places">Места</a></p>
                 <p><a class="btn btn-default" href="index.php?r=recapitulation/meetings">Встречи</a></p>
                 <p><a class="btn btn-default" href="index.php?r=recapitulation/tags">Свойства</a></p>
+            </div>
+            <div class="col-lg-4">
+                <h2>Велосипед</h2>
+
+                <p><a class="btn btn-default" href="index.php?r=bicycle/chains">Износ цепи</a></p>
             </div>
         </div>
 
