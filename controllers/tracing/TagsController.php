@@ -105,6 +105,7 @@ class TagsController extends Controller
      */
     public function actionDelete($id)
     {
+// 	die($id);	
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

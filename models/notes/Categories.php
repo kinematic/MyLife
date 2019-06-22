@@ -41,4 +41,9 @@ class Categories extends \yii\db\ActiveRecord
             'name' => 'название',
         ];
     }
+
+	public function getNotes()
+	{
+		$this->hasMany(Notes::className(), ['id' => 'categoryid']); 
+	}
 }

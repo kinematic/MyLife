@@ -35,13 +35,12 @@ use yii\helpers\ArrayHelper;
 					]
 				]);
 			?>
-<?php
-$rows = $model->Tagsorderlist;
-$array = array('ord' => $model->ord,
-               'name' => $model->ord);
-array_unshift($rows, $array);
-;
-?>
+			<?php
+			$rows = $model->Tagsorderlist;
+			$array = array('ord' => $model->ord,
+			               'name' => $model->ord);
+			array_unshift($rows, $array);
+			?>
 			<?= $form->field($model, 'ord', ['inputOptions' => ['class' => 'form-control', 'tabindex' => '2']])
 				->dropDownList(ArrayHelper::map(
 				$rows, 'ord', 'name')) ?>

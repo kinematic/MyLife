@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\notes\Categories */
@@ -24,13 +25,32 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
+	<div class="row">
+        <div class="col-md-4">
+		    <?= DetailView::widget([
+		        'model' => $model,
+		        'attributes' => [
+		//             'id',
+		            'name',
+		        ],
+		    ]) ?>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-//             'id',
-            'name',
-        ],
-    ]) ?>
+<?php 
+print_r($model->notes);
+?>
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+//                 'filterModel' => $searchModel,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+
+        //             'id',
+                    'name',
+
+                    ['class' => 'yii\grid\ActionColumn'],
+                ],
+            ]); ?>
+        </div>
+    </div>
 
 </div>

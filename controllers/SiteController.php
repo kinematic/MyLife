@@ -10,6 +10,10 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\UploadForm;
 use yii\web\UploadedFile;
+use app\models\workout\Bodysizes;
+use app\models\workout\Runing;
+use yii\db\Query;
+use yii\data\ActiveDataProvider;
 
 class SiteController extends Controller
 {
@@ -138,5 +142,54 @@ class SiteController extends Controller
         }
 
         return $this->render('upload', ['model' => $model]);
+    }
+    
+    public function actionReport()
+    {
+		$startdate = date("Y-m-d", strtotime('monday this week'));
+		$enddate = date("Y-m-d", strtotime('sunday this week'));
+
+        $weight = Bodysizes::find()
+            ->select("AVG(value) value")
+            ->where("partid = 1 AND date BETWEEN '{$startdate}' AND '{$enddate}'")
+            ->one();  
+// print_r($weight);
+// die();
+
+// 			$weight = new Query;
+// 			$weight->select('sum(id) name, AVG(value) approaches')
+// 		    ->from('workout_bodysizes wa')
+// 			->where('partid = 1 AND date BETWEEN DATE_SUB(CURRENT_DATE, Interval 1 WEEK) AND CURRENT_DATE()');
+
+        $runing = Runing::find()
+            ->select('SUM(duration) duration')
+            ->where("date BETWEEN '{$startdate}' AND '{$enddate}'")
+            ->one();
+// print_r($runing);
+// die();
+		$query = new Query;
+		$query->select('we.name name, SUM(approaches) approaches')
+		    ->from('workout_approaches_view wa')
+			->innerJoin('workout_exercises we', 'wa.exerciseid = we.id')
+			->where("date BETWEEN '{$startdate}' AND '{$enddate}'")
+			->groupBy('we.name');
+// $approaches =
+
+// 		$query->union($weight);
+		$dataProvider = new ActiveDataProvider([
+		    'query' => $query,
+		    'pagination' => [
+		        'pageSize' => 10,
+		    ],
+		]);
+
+        return $this->render(
+            'report', 
+            [
+                'weight' => $weight,
+				'dataProvider' => $dataProvider,
+				'runing' => $runing
+            ]
+        );
     }
 }

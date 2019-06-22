@@ -23,6 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+		<?= Html::a('Добавить еще', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 	<div class='row'>
 		<div class='col-md-4'>

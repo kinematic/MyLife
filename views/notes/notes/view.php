@@ -23,18 +23,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a('Добавить еще', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить еще', ['create'], ['class' => 'btn btn-success', 'accesskey' => 'a']) ?>
     </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-//             'id',
-            'category.name',
-//             'name',
-//             'description:html',
-			'description:html',
-        ],
-    ]) ?>
-
+    <div class="row">
+        <div class="col-md-6">
+		    <?= DetailView::widget([
+		        'model' => $model,
+		        'attributes' => [
+		//             'id',
+		            'category.name',
+		//             'name',
+		//             'description:html',
+					'description:html',
+		        ],
+		    ]) ?>
+		</div>
+	</div>
 </div>

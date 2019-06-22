@@ -18,14 +18,14 @@ $this->title = 'Моя жизнь';
 
         <div class="row">
             <div class="col-lg-4">
-                <h2>Автомобили</h2>
+                <h2>Тренировки</h2>
 
-                <p><a class="btn btn-default" href="index.php?r=cars/road">Путёвки</a></p>
-                <p><a class="btn btn-default" href="index.php?r=cars/models">Модели</a></p>
-                <p><a class="btn btn-default" href="index.php?r=cars/cars">Автомобили</a></p>
-                <p><a class="btn btn-default" href="index.php?r=cars/charges">Заправки</a></p>
-                <p><a class="btn btn-default" href="index.php?r=cars/regulations">Регламент работ</a></p>
-				<p><a class="btn btn-default" href="index.php?r=cars/spareparts">Запчасти</a></p>
+                <p><a class="btn btn-default" href="index.php?r=workout/approaches">Подходы</a></p>
+                <p><a class="btn btn-default" href="index.php?r=workout/bodysizes">Замеры</a></p>
+                <p><a class="btn btn-default" href="index.php?r=workout/exercises">Упражнения</a></p>
+                <p><a class="btn btn-default" href="index.php?r=workout/partsofbody">Части тела</a></p>
+				<p><a class="btn btn-default" href="index.php?r=workout/runing">Пробежки</a></p>
+				<p><a class="btn btn-default" href="index.php?r=workout/places">Места</a></p>
             </div>
             <div class="col-lg-4">
                 <h2>Коммунальные расходы</h2>
@@ -73,6 +73,16 @@ $this->title = 'Моя жизнь';
                 <h2>Велосипед</h2>
 
                 <p><a class="btn btn-default" href="index.php?r=bicycle/chains">Износ цепи</a></p>
+            </div>
+            <div class="col-lg-4">
+                <h2>Автомобили</h2>
+
+                <p><a class="btn btn-default" href="index.php?r=cars/road">Путёвки</a></p>
+                <p><a class="btn btn-default" href="index.php?r=cars/models">Модели</a></p>
+                <p><a class="btn btn-default" href="index.php?r=cars/cars">Автомобили</a></p>
+                <p><a class="btn btn-default" href="index.php?r=cars/charges">Заправки</a></p>
+                <p><a class="btn btn-default" href="index.php?r=cars/regulations">Регламент работ</a></p>
+				<p><a class="btn btn-default" href="index.php?r=cars/spareparts">Запчасти</a></p>
             </div>
         </div>
 

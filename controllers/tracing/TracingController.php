@@ -65,11 +65,18 @@ class TracingController extends Controller
     public function actionCreate()
     {
         $model = new Tracing();
-// print_r(Yii::$app->request->post());
-// die();
         if ($model->load(Yii::$app->request->post())) {
-        // print_r(Yii::$app->request->post());
+			$ord = Tracing::find()->where(['model_id' => $model->model_id, 'ord' => $model->ord])->one();
+
+			if(isset($ord->ord)) {
+
+// print_r($ord);
 // die();
+				$connection = Yii::$app->db;
+// 				$connection->createCommand()->update('tracing_tracing', ['ord' => 'ord + 1'], 'model_id = ' . $model->model_id . ' ord >= ' . $model->ord)->execute();
+				$command = $connection->createCommand('UPDATE tracing_tracing SET ord = ord + 1 WHERE model_id = ' . $model->model_id . ' AND ord >= ' . $model->ord);
+				$command->execute();
+}
 			$this->setValFromDirectory(
 				$model, // 
 				'Tags', // модель
@@ -95,16 +102,13 @@ class TracingController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-// print_r($model->tag_name);
-// die();
-
+        if ($model->load(Yii::$app->request->post())) {
 			$this->setValFromDirectory(
 				$model, // 
 				'Tags', // модель
 				'tag_name', // атрибут поиска, string
 				'tag_id'); // атрибут модели, int
-            return $this->redirect(['tracing/groups/view', 'id' => $model->model_id]);
+            if($model->save()) return $this->redirect(['tracing/groups/view', 'id' => $model->model_id]);
         } else {
 			if(isset($model->tags->name)) $model->tags_name = $model->tags->name;
 			return $this->render('update', [

@@ -71,6 +71,7 @@ class NotesController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+			$model->categoryid = 22;
             return $this->render('create', [
                 'model' => $model,
             ]);

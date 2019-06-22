@@ -51,6 +51,11 @@ $config = [
             'class' => 'app\components\Balance'
         ],
     ],
+	'modules' => [
+        'stat' => [
+            'class' => 'app\modules\statistics\Stat',
+        ],
+    ],
     'params' => $params,
 ];
 
@@ -60,7 +65,7 @@ if (YII_ENV_DEV) {
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
         'traceLine' => '<a href="kate://open?url={file}&line={line}">{file}:{line}</a>',
-        'allowedIPs' => ['192.168.2.*', '10.10.0.*'],
+        'allowedIPs' => ['192.168.2.22', '10.10.0.6', '192.168.2.23'],
         'panels' => [
             'db' => [
                 'class' => 'yii\debug\panels\DbPanel',
@@ -77,7 +82,7 @@ if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
-        'allowedIPs' => ['192.168.2.*', '10.10.0.*'],
+        'allowedIPs' => ['192.168.2.22'],
 
     ];
 }

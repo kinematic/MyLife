@@ -8,6 +8,7 @@ use app\models\notes\CategoriesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\ArrayDataProvider;
 
 /**
  * CategoriesController implements the CRUD actions for Categories model.
@@ -51,8 +52,31 @@ class CategoriesController extends Controller
      */
     public function actionView($id)
     {
+		$model = $this->findModel($id);
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $model->notes,
+            'key' => 'id',
+			'sort' => [
+				//'attributes' => ['first_name', 'second_name'],
+				'defaultOrder' => [
+                    'name' => SORT_ASC,
+                    //'second_name' => SORT_ASC,
+                ],
+				'attributes' => [
+					'name' => [
+                        'asc' => ['name' => SORT_ASC],
+                        'desc' => ['name' => SORT_DESC],
+                        'default' => SORT_DESC
+                   ],
+				],
+			],
+            'pagination' => [
+                 'pageSize' => 30,
+            ],
+        ]);
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+			'dataProvider' => $dataProvider,
         ]);
     }
 

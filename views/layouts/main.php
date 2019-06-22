@@ -36,6 +36,25 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
+            ['label' => 'Отчет', 'url' => ['site/report']],
+			[
+				'label' => 'Тренировки', 
+// 				'url' => ['/bookkeeping/records'],
+				'items' => [
+		            [
+						'label' => 'Подходы', 
+						'url' => ['workout/approaches']
+					],
+		            [
+						'label' => 'Кардио', 
+						'url' => ['workout/runing']
+					],	            
+					[
+						'label' => 'Замеры', 
+						'url' => ['workout/bodysizes']
+					],
+				],
+			],
             [
 				'label' => 'Бухгалтерия', 
 // 				'url' => ['/bookkeeping/records'],

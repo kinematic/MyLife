@@ -23,30 +23,35 @@ use app\models\bookkeeping\Catalog;
 		                'clientOptions' => [
 		                    'autoclose' => true,
 		                    'format' => 'yyyy-mm-dd'
-		                ]
+		                ],
+						'options'=>[
+							'autofocus' => 'autofocus',
+							'class'=>'form-control',
+							'tabindex' => '1'
+						]
 		        ]); 
         ?>
-		<?= $form->field($model, 'catalogid')->dropDownList(ArrayHelper::map(Catalog::find()->addOrderBy('name')->all(), 'id', 'name'), ['prompt'=>'']) ?>
+		<?= $form->field($model, 'catalogid', ['inputOptions' => ['class' => 'form-control', 'tabindex' => '4']])->dropDownList(ArrayHelper::map(Catalog::find()->addOrderBy('name')->all(), 'id', 'name'), ['prompt'=>'']) ?>
 	    
 		
 	</div>
 
     <div class="col-sm-4">
-		<?= $form->field($model, 'typeid')->dropDownList(array(1 => 'приход', 2 => 'расход')) ?>
-	    <?= $form->field($model, 'quantity')->textInput() ?>
+		<?= $form->field($model, 'typeid', ['inputOptions' => ['class' => 'form-control', 'tabindex' => '2']])->dropDownList(array(1 => 'приход', 2 => 'расход')) ?>
+	    <?= $form->field($model, 'quantity', ['inputOptions' => ['class' => 'form-control', 'tabindex' => '5']])->textInput() ?>
 		
 		
 	</div>
 	<div class="col-sm-4">
-		<?= $form->field($model, 'accountid')->dropDownList(ArrayHelper::map(Accounts::find()->addOrderBy('name')->all(), 'id', 'name'), ['prompt'=>'']) ?>
-		<?= $form->field($model, 'money')->textInput(['maxlength' => true]) ?>
+		<?= $form->field($model, 'accountid', ['inputOptions' => ['class' => 'form-control', 'tabindex' => '3']])->dropDownList(ArrayHelper::map(Accounts::find()->addOrderBy('name')->all(), 'id', 'name'), ['prompt'=>'']) ?>
+		<?= $form->field($model, 'money', ['inputOptions' => ['class' => 'form-control', 'tabindex' => '6']])->textInput(['maxlength' => true]) ?>
 	</div>
 </div>
     
-    <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'description', ['inputOptions' => ['class' => 'form-control', 'tabindex' => '7']])->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Сохранить' : 'Сохранить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Сохранить' : 'Сохранить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'tabindex' => '8']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
