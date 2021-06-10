@@ -9,7 +9,6 @@ use Yii;
  *
  * @property integer $id
  * @property string $name
- * @property string $license
  * @property integer $tank
  * @property integer $division
  * @property string $consumption
@@ -34,7 +33,6 @@ class Models extends \yii\db\ActiveRecord
             [['tank', 'division'], 'integer'],
             [['consumption'], 'number'],
             [['name'], 'string', 'max' => 100],
-//             [['license'], 'string', 'max' => 8],
         ];
     }
 
@@ -46,7 +44,6 @@ class Models extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'название',
-//             'license' => 'номер',
             'tank' => 'ёмкость бака, л',
             'division' => 'деления бака',
             'consumption' => 'расход, л/ 100 км',

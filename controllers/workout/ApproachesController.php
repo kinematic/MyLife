@@ -71,16 +71,19 @@ class ApproachesController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
-		$dataProvider = new ActiveDataProvider([
-		    'query' => Approaches::find()
-                ->innerJoin('workout_exercises we', 'workout_approaches.exerciseid = we.id')
-                ->where('workout_approaches.id IN (SELECT max(wa.id) FROM workout_approaches wa group by exerciseid)')
-                ->orderBy('we.name'),
-		    'pagination' => [
-		        'pageSize' => 20,
-		    ],
-		]);
-
+// 		$dataProvider = new ActiveDataProvider([
+// 		    'query' => Approaches::find()
+//                 ->innerJoin('workout_exercises we', 'workout_approaches.exerciseid = we.id')
+//                 ->where('workout_approaches.id IN (
+//                     SELECT wa.id FROM workout_approaches wa, maxapproaches m 
+//                     WHERE wa.exerciseid = m.exerciseid AND wa.date = maxdate)
+//                     AND date > SUBDATE(NOW(), INTERVAL 3 MONTH)')
+//                 ->orderBy('we.name'),
+// 		    'pagination' => [
+// 		        'pageSize' => 20,
+// 		    ],
+// 		]);
+$dataProvider = null;
 		$model->date = date('Y-m-d');
 		$model->placeid = 4;
 		$model->exerciseid = 2;
@@ -89,6 +92,7 @@ class ApproachesController extends Controller
 		$model->approach3 = 7;
 		$model->approach4 = 7;
 		$model->approach5 = 7;
+		$model->approach6 = 0;
 
         return $this->render('create', [
             'model' => $model,

@@ -89,7 +89,7 @@ class Road extends \yii\db\ActiveRecord
 	        ->limit(1)
 	        ->one();
         
-        if($row['sum(charge)']) return $row['sum(charge)'];
+        if(isset($row['sum(charge)'])) return $row['sum(charge)'];
         else return 0;
         //return if(isset($row['sum(charge)')];
 
@@ -112,13 +112,15 @@ class Road extends \yii\db\ActiveRecord
 	            ->orderBy(['r.id' => SORT_DESC])
 	            ->one();
         } else {
-            $row = (new \yii\db\Query())
-	            ->select(['odometer', 'tank'])
-	            ->from('cars_road')
-	            ->where(['carid' => 1])
-	            ->limit(1)
-	            ->orderBy(['id' => SORT_DESC])
-	            ->one();
+//             $row = (new \yii\db\Query())
+// 	            ->select(['odometer', 'tank'])
+// 	            ->from('cars_road')
+// 	            ->where(['carid' => 1])
+// 	            ->limit(1)
+// 	            ->orderBy(['id' => SORT_DESC])
+// 	            ->one();
+                $row['odometer'] = 0;
+                $row['tank'] = 0;
         }
         return $row;
 

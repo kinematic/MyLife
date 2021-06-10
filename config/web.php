@@ -64,8 +64,8 @@ if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
-        'traceLine' => '<a href="kate://open?url={file}&line={line}">{file}:{line}</a>',
-        'allowedIPs' => ['192.168.2.22', '10.10.0.6', '192.168.2.23'],
+//         'traceLine' => '<a href="kate://open?url={file}&line={line}">{file}:{line}</a>',
+        'allowedIPs' => ['192.168.2.13', '10.10.0.6', '192.168.2.22'],
         'panels' => [
             'db' => [
                 'class' => 'yii\debug\panels\DbPanel',
@@ -82,7 +82,7 @@ if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
-        'allowedIPs' => ['192.168.2.22'],
+        'allowedIPs' => ['192.168.2.13', '10.10.0.6'],
 
     ];
 }

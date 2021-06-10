@@ -64,8 +64,8 @@ class SparepartsSearch extends Spareparts
         ]);
 
         $query->andFilterWhere(['like', 'partcode', $this->partcode])
-            ->andFilterWhere(['like', 'description', $this->description]);
-            
+            ->andFilterWhere(['like', 'description', $this->description])
+            ->orFilterWhere(['like', 'information', $this->description]);
         
         $query->orderBy('partcode');
 

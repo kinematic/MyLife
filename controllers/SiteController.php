@@ -146,8 +146,11 @@ class SiteController extends Controller
     
     public function actionReport()
     {
-		$startdate = date("Y-m-d", strtotime('monday this week'));
-		$enddate = date("Y-m-d", strtotime('sunday this week'));
+// 		$startdate = date("Y-m-d", strtotime('monday this week'));
+		$startdate = date("Y-m-d", strtotime('-1 week'));
+		
+// 		$enddate = date("Y-m-d", strtotime('sunday this week'));
+		$enddate = date("Y-m-d");
 
         $weight = Bodysizes::find()
             ->select("AVG(value) value")

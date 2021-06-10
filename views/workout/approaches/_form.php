@@ -55,6 +55,9 @@ use app\models\workout\Places;
 			<div class='col-md-2'>
 			    <?= $form->field($model, 'approach5')->textInput(['type' => 'number', 'min' => 0, 'max' => 50]) ?>
 			</div>
+			<div class='col-md-2'>
+			    <?= $form->field($model, 'approach6')->textInput(['type' => 'number', 'min' => 0, 'max' => 50]) ?>
+			</div>
 		</div>
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

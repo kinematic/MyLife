@@ -19,7 +19,7 @@ class ModelsSearch extends Models
     {
         return [
             [['id', 'tank', 'division'], 'integer'],
-            [['name', 'license'], 'safe'],
+            [['name'], 'safe'],
             [['consumption'], 'number'],
         ];
     }
@@ -66,8 +66,7 @@ class ModelsSearch extends Models
             'consumption' => $this->consumption,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'license', $this->license]);
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

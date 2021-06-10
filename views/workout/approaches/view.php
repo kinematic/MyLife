@@ -41,6 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		            'approach3',
 		            'approach4',
 		            'approach5',
+		            'approach6',
 					'coefficient',
 		        ],
 		    ]) ?>

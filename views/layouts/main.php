@@ -45,6 +45,10 @@ AppAsset::register($this);
 						'label' => 'Подходы', 
 						'url' => ['workout/approaches']
 					],
+					[
+						'label' => 'Повторы', 
+						'url' => ['workout/repetitions']
+					],
 		            [
 						'label' => 'Кардио', 
 						'url' => ['workout/runing']

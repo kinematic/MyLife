@@ -18,19 +18,22 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
     ]) ?>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            'exercise.name',
-            'approach1:text:1',
-            'approach2:text:2',
-            'approach3:text:3',
-            'approach4:text:4',
-            'approach5:text:5',
-			'coefficient:text:q',
-//             ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+    <?php 
+//     echo GridView::widget([
+//         'dataProvider' => $dataProvider,
+//         'columns' => [
+//             ['class' => 'yii\grid\SerialColumn'],
+//             'exercise.name',
+//             'approach1:text:1',
+//             'approach2:text:2',
+//             'approach3:text:3',
+//             'approach4:text:4',
+//             'approach5:text:5',
+//             'approach6:text:6',
+// 			'coefficient:text:q',
+// //             ['class' => 'yii\grid\ActionColumn'],
+//         ],
+//     ]); 
+    ?>
 
 </div>

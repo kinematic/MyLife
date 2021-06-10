@@ -43,8 +43,18 @@ class Runing extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'date' => 'дата',
-            'distance' => 'расстояние, км',
-            'duration' => 'длительность, мин',
+            'distance' => 'раст., км',
+            'duration' => 'длит., мин',
+            'temp' => 'темп, мин/км',
+            'speed' => 'скор., км/ч',
         ];
+    }
+    
+    public function getTemp(){
+        return round($this->duration / $this->distance, 1);
+    }
+    
+    public function getSpeed(){
+        return round($this->distance / ($this->duration / 60), 1);
     }
 }

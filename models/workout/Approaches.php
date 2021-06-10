@@ -15,6 +15,7 @@ use Yii;
  * @property int $approach3
  * @property int $approach4
  * @property int $approach5
+ * @property int $approach6
  */
 class Approaches extends \yii\db\ActiveRecord
 {
@@ -32,9 +33,9 @@ class Approaches extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['date', 'placeid', 'exerciseid', 'approach1', 'approach2', 'approach3', 'approach4', 'approach5'], 'required'],
+            [['date', 'placeid', 'exerciseid', 'approach1', 'approach2', 'approach3', 'approach4', 'approach5', 'approach6'], 'required'],
             [['date'], 'safe'],
-            [['exerciseid', 'placeid', 'approach1', 'approach2', 'approach3', 'approach4', 'approach5'], 'integer'],
+            [['exerciseid', 'placeid', 'approach1', 'approach2', 'approach3', 'approach4', 'approach5', 'approach6'], 'integer'],
 // 			[['approache1', 'approache2', 'approach3', 'approach4', 'approach5'], 'default', 'value' => 6],
         ];
     }
@@ -55,6 +56,7 @@ class Approaches extends \yii\db\ActiveRecord
             'approach3' => 'подход 3, раз',
             'approach4' => 'подход 4, раз',
             'approach5' => 'подход 5, раз',
+            'approach6' => 'подход 6, раз',
 			'coefficient' => 'коэффициент',
         ];
     }
@@ -72,7 +74,16 @@ class Approaches extends \yii\db\ActiveRecord
      */
     public function getCoefficient()
     {
-        return round(($this->approach1 + $this->approach2 + $this->approach3 + $this->approach4 + $this->approach5) / 5, 1);
+        $sum = 0;
+        $count = 0;
+        for ($i = 1; $i <= 6; $i++) {
+            $a = 'approach' . $i;
+            if ($this->$a) { 
+                $sum += $this->$a;
+                $count += 1;
+            }
+        }
+        return round(($sum) / $count, 1);
     }
     
         
